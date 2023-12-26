@@ -93,8 +93,18 @@ function Navbar(props) {
             </Typography>
             <List>
                 <ListItem>
-                    <ListItemButton component={Link} to="/about" style={{margin:'1.94rem', width: '7rem', height: '4.3125rem' }} sx={{ textAlign: 'center', fontFamily: 'Roboto'}}>
-                        <ListItemText primaryTypographyProps={{fontSize: '2rem', color: '#D5EBFF'}} primary="About" />
+                    <ListItemButton component={Link} to="/about" style={{width: '8rem', height: '4.3125rem' }} 
+                        sx={{
+                            color: '#D5EBFF',                               
+                            transition: '.4s',
+                            ":hover": {
+                                cursor: "pointer",
+                                color: '#5790FF'
+                                },
+                            textAlign: 'center', 
+                            fontFamily: 'Roboto'
+                            }}>
+                        <ListItemText primaryTypographyProps={{fontSize: '2rem'}} primary="About" />
                     </ListItemButton>
                 </ListItem>
             </List>
