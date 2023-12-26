@@ -35,7 +35,7 @@ function Navbar(props) {
           transform: 'translateX(-19px)',
           '&.Mui-checked': {
             color: '#fff',
-            transform: 'translateX(24px)',
+            transform: 'translateX(23px)',
             '& .MuiSwitch-thumb:before': {
               backgroundImage: `url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" height="2.2rem" width="2.2rem" viewBox="0 0 20 20"><path fill="${encodeURIComponent(
                 '#fff',
@@ -91,15 +91,45 @@ function Navbar(props) {
             >
               'visionPrep
             </Typography>
+            <List>
+                <ListItem>
+                    <ListItemButton component={Link} to="/about" style={{width: '8rem', height: '4.3125rem' }} 
+                        sx={{
+                            color: '#D5EBFF',                               
+                            transition: '.4s',
+                            ":hover": {
+                                cursor: "pointer",
+                                color: '#5790FF'
+                                },
+                            textAlign: 'center', 
+                            fontFamily: 'Roboto'
+                            }}>
+                        <ListItemText primaryTypographyProps={{fontSize: '2rem'}} primary="About" />
+                    </ListItemButton>
+                </ListItem>
+            </List>
             <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
                 
                 <List>
                     <ListItem disablePadding>
-                        <ListItemButton component={Link} to="/about" style={{margin:'1.94rem', width: '7rem', height: '4.3125rem' }} sx={{ textAlign: 'center', fontFamily: 'Roboto'}}>
+                        {/* <ListItemButton component={Link} to="/about" style={{margin:'1.94rem', width: '7rem', height: '4.3125rem' }} sx={{ textAlign: 'center', fontFamily: 'Roboto'}}>
                             <ListItemText primaryTypographyProps={{fontSize: '2rem', color: '#D5EBFF'}} primary="About" />
-                        </ListItemButton>
-                        <ListItemButton component={Link} to="/" style={{borderRadius: '2.375rem', margin:'1.94rem', background: '#5790FF', width: '12.875rem', height: '4.3125rem' }} sx={{ textAlign: 'center', fontFamily: 'Roboto'}}>
-                            <ListItemText primaryTypographyProps={{fontSize: '2rem', color: '#010101'}} primary="Log in" />
+                        </ListItemButton> */}
+                        <ListItemButton component={Link} to="/" style={{borderRadius: '2.375rem', margin:'1.94rem', width: '12.875rem', height: '4.3125rem' }} 
+                            sx={{
+                                backgroundColor: '#5790FF',                                
+                                transition: '.4s',
+                                ":hover": {
+                                    backgroundColor: '#D5EBFF',
+                                    cursor: "pointer",
+                                    color: '#5790FF',
+
+                                    },
+                                textAlign: 'center', 
+                                color: '#010101',
+                                fontFamily: 'Roboto'
+                              }}>
+                            <ListItemText primaryTypographyProps={{fontSize: '2rem'}} primary="Log in" />
                         </ListItemButton>
                     </ListItem>
                 </List>
