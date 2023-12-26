@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import WelcomePage from './pages/WelcomePage';
+import AboutPage from './pages/AboutPage';
 import reportWebVitals from './reportWebVitals';
 import {
   createBrowserRouter,
@@ -17,6 +18,10 @@ const router = createBrowserRouter([
   {
     path: "welcome",
     element: <WelcomePage/>,
+  },
+  {
+    path: "about",
+    element: <AboutPage/>,
   },
 ]);
 
