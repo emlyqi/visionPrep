@@ -5,6 +5,7 @@ import App from './App';
 import WelcomePage from './pages/WelcomePage';
 import AboutPage from './pages/AboutPage';
 import reportWebVitals from './reportWebVitals';
+import UploadPage from './pages/UploadPage';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -13,15 +14,15 @@ import {
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <App/>,
-  },
-  {
-    path: "welcome",
     element: <WelcomePage/>,
   },
   {
     path: "about",
     element: <AboutPage/>,
+  },
+  {
+    path: "upload",
+    element: <UploadPage/>,
   },
 ]);
 

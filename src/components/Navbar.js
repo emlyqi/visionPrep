@@ -115,7 +115,7 @@ function Navbar(props) {
                         {/* <ListItemButton component={Link} to="/about" style={{margin:'1.94rem', width: '7rem', height: '4.3125rem' }} sx={{ textAlign: 'center', fontFamily: 'Roboto'}}>
                             <ListItemText primaryTypographyProps={{fontSize: '2rem', color: '#D5EBFF'}} primary="About" />
                         </ListItemButton> */}
-                        <ListItemButton component={Link} to="/" style={{borderRadius: '2.375rem', margin:'1.94rem', width: '12.875rem', height: '4.3125rem' }} 
+                        <ListItemButton component={Link} to="upload" style={{borderRadius: '2.375rem', margin:'1.94rem', width: '12.875rem', height: '4.3125rem' }} 
                             sx={{
                                 backgroundColor: '#5790FF',                                
                                 transition: '.4s',
