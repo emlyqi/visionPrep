@@ -8,12 +8,12 @@ function UploadPage() {
             <Grid 
                 item 
                 container
-                marginTop='5.81rem' 
+                marginTop='1rem' 
                 borderRadius='0.9375rem' 
                 justifyContent='center' 
                 alignContent='center' 
                 backgroundColor='#26272B'
-                style={{width: "79.4375rem", height: "53.125rem"}}
+                style={{width: "83rem", height: "42rem"}}
             >
             </Grid>
         </Grid>
