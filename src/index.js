@@ -6,6 +6,7 @@ import WelcomePage from './pages/WelcomePage';
 import AboutPage from './pages/AboutPage';
 import reportWebVitals from './reportWebVitals';
 import UploadPage from './pages/UploadPage';
+import TestPage from './pages/TestPage';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
   {
     path: "upload",
     element: <UploadPage/>,
+  },
+  {
+    path: "test",
+    element: <TestPage/>,
   },
 ]);
 
