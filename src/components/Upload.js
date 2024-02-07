@@ -15,7 +15,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Stack from '@mui/material/Stack';
-import csvFormat from './scheduleFormat.png';
+import CSVFormat from '../assets/CSVFormat.png'
 
 function UploadCSV() {
   const [file, setFile] = useState();
@@ -99,7 +99,7 @@ function UploadCSV() {
           ))}
         </tbody>
       </table>
-      <img src={csvFormat} />
+      <img src={CSVFormat} alt="CSV Format" />
     </div>
   );
 }

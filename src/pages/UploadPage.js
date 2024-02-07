@@ -1,5 +1,6 @@
 import React from "react";
 import { Grid } from "@mui/material"; 
+import UploadCSV from "../components/Upload"
 
 
 function UploadPage() {
@@ -15,6 +16,9 @@ function UploadPage() {
                 backgroundColor='#26272B'
                 style={{width: "83rem", height: "42rem"}}
             >
+                <React.StrictMode>
+                    <UploadCSV />
+                </React.StrictMode>
             </Grid>
         </Grid>
     );
