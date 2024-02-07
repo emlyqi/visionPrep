@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
@@ -59,46 +60,61 @@ function UploadCSV() {
   const headerKeys = Object.keys(Object.assign({}, ...array));
 
   return (
-    <div style={{ textAlign: "center" }}>
-      <h1>REACTJS CSV IMPORT EXAMPLE </h1>
-      <form>
-        <input
-          type={"file"}
-          id={"csvFileInput"}
-          accept={".csv"}
-          onChange={handleOnChange}
-        />
+    <div>
+      <div style={{ textAlign:"center"}}>
+        <form style={{ }}>
+          <input
+            style={{ position:"absolute",  left:"50%", top:"32%", transform:"translate(-50%, -50%)", display:"block"}}
+            type={"file"}
+            id={"csvFileInput"}
+            accept={".csv"}
+            onChange={handleOnChange}
+          />
 
-        <button
-          onClick={(e) => {
-            handleOnSubmit(e);
-          }}
-        >
-          IMPORT CSV
-        </button>
-      </form>
+          <Button
+            sx={{ 
+              position:"absolute",
+              left:"50%",
+              top:"32%",
+              transform:"translate(-50%,50%)",
+              display:"block",
+              backgroundColor:"#212121",
+              color:"#80828A",
+              padding:"0",
+              ":hover": {
+                textDecoration:"underline"
+              },
+            }}
+            onClick={(e) => {
+              handleOnSubmit(e);
+            }}
+          >
+            Import CSV
+          </Button>
+        </form>
 
-      <br />
+        <br />
 
-      <table>
-        <thead>
-          <tr key={"header"}>
-            {headerKeys.map((key) => (
-              <th>{key}</th>
-            ))}
-          </tr>
-        </thead>
-
-        <tbody>
-          {array.map((item) => (
-            <tr key={item.id}>
-              {Object.values(item).map((val) => (
-                <td>{val}</td>
+        <table>
+          <thead>
+            <tr key={"header"}>
+              {headerKeys.map((key) => (
+                <th>{key}</th>
               ))}
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+
+          <tbody>
+            {array.map((item) => (
+              <tr key={item.id}>
+                {Object.values(item).map((val) => (
+                  <td>{val}</td>
+                ))}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       <img src={CSVFormat} alt="CSV Format" />
     </div>
   );
