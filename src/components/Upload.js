@@ -16,7 +16,8 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Stack from '@mui/material/Stack';
-import CSVFormat from '../assets/CSVFormat.png'
+import CSVFormat from '../assets/CSVFormat.png';
+import Papa from "papaparse";
 
 function UploadCSV() {
   const [file, setFile] = useState();
@@ -26,6 +27,13 @@ function UploadCSV() {
 
   const handleOnChange = (e) => {
     setFile(e.target.files[0]);
+    Papa.parse(e.target.files[0], {
+      header: true,
+      skipEmptyLines: true,
+      complete: function(results) {
+        console.log(results.data)
+      },
+    });
   };
 
   const csvFileToArray = string => {
@@ -56,6 +64,16 @@ function UploadCSV() {
       fileReader.readAsText(file);
     }
   };
+
+  // const changeHandler = (e) => {
+  //   Papa.parse(e.target.files[0], {
+  //     header:true,
+  //     skipEmptyLines:true,
+  //     complete:function(results){
+  //       console.log(results.data)
+  //     },
+  //   });
+  // }
 
   const headerKeys = Object.keys(Object.assign({}, ...array));
 
@@ -95,7 +113,7 @@ function UploadCSV() {
 
         <br />
 
-        <table>
+        {/* <table>
           <thead>
             <tr key={"header"}>
               {headerKeys.map((key) => (
@@ -113,7 +131,7 @@ function UploadCSV() {
               </tr>
             ))}
           </tbody>
-        </table>
+        </table> */}
       </div>
       <img src={CSVFormat} alt="CSV Format" />
     </div>
