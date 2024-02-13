@@ -1,9 +1,9 @@
 import React from "react";
 import { Grid } from "@mui/material"; 
-
+import UploadCSV from '../components/Upload';
 
 function TestPage() {
-    return (  
+    return ( 
         <Grid container flexGrow xs={12} minHeight='100vh' bgcolor='#34363D' justifyContent="center" alignItems="center">
             <Grid 
                 item 
@@ -15,6 +15,9 @@ function TestPage() {
                 backgroundColor='#26272B'
                 style={{width: "83rem", height: "42rem"}}
             >
+                <React.StrictMode>
+                    <UploadCSV />
+                </React.StrictMode>
             </Grid>
         </Grid>
     );
