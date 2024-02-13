@@ -14,7 +14,8 @@ function UploadPage() {
                 justifyContent='center' 
                 alignContent='center' 
                 backgroundColor='#26272B'
-                style={{width: "83rem", height: "42rem"}}
+
+                style={{top: '0', bottom: '0', left: '0', right: '0', position: 'absolute', width: 'auto', height: 'auto', marginTop: '4.5rem', marginBottom: '4.5rem', marginRight: '4.5rem', marginLeft: '4.5rem'}}
             >
                 <React.StrictMode>
                     <UploadCSV />
