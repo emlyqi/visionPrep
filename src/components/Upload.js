@@ -82,7 +82,7 @@ function UploadCSV() {
       <div style={{ textAlign:"center"}}>
         <form style={{ }}>
           <input
-            style={{ position:"absolute",  left:"50%", top:"32%", transform:"translate(-50%, -50%)", display:"block"}}
+            style={{ position:"absolute",  left:"50%", top:"11.25rem", transform:"translate(-50%, -50%)", display:"block"}}
             type={"file"}
             id={"csvFileInput"}
             accept={".csv"}
@@ -93,7 +93,7 @@ function UploadCSV() {
             sx={{ 
               position:"absolute",
               left:"50%",
-              top:"32%",
+              top:"11.25rem",
               transform:"translate(-50%,50%)",
               display:"block",
               backgroundColor:"#212121",
@@ -132,8 +132,11 @@ function UploadCSV() {
             ))}
           </tbody>
         </table> */}
+
       </div>
+
       <img src={CSVFormat} alt="CSV Format" />
+      
     </div>
   );
 }
