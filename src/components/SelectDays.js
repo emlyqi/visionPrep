@@ -5,7 +5,6 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from '@mui/material/Select';
 import CalendarDate from './CalendarDate';
-import NextButt from './NextButt';
 
 function SelectDays () {
 
@@ -154,7 +153,6 @@ function SelectDays () {
           >End Date</p>
           <CalendarDate/>
         </Box>
-        <NextButt></NextButt>
       </Box>
     );
 }

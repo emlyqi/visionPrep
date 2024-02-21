@@ -78,7 +78,7 @@ function UploadCSV() {
   const headerKeys = Object.keys(Object.assign({}, ...array));
 
   return (
-    <div>
+    <div style={{ margin: 'auto'}}>
       <div style={{ textAlign:"center"}}>
         <form style={{ }}>
           <input
