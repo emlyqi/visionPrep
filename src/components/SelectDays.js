@@ -4,7 +4,7 @@ import DoRButts from "./DoRButts";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from '@mui/material/Select';
-import CalendarDate from './CalendarDate';
+import CalendarDate from './CalendarDate'
 
 function SelectDays () {
 
@@ -153,6 +153,7 @@ function SelectDays () {
           >End Date</p>
           <CalendarDate/>
         </Box>
+
       </Box>
     );
 }

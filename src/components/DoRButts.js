@@ -1,24 +1,32 @@
-import React from "react";
+import React, { useState, useContext } from "react";
 import { ToggleButton } from '@mui/material';
+import UploadContext from "../contexts/UploadContext";
 
 // color change when pressed isnt working!!!
 
 function DoRButts ({ featureName }) {
+    const {daysOfRotationValue, startDayValue, startDateValue, endDateValue} = useContext(UploadContext);
+    const [setDaysOfRotation] = daysOfRotationValue;
+    const [setStartDay] = startDayValue;
+    const [setStartDate] = startDateValue;
+    const [setEndDate] = endDateValue;
 
-    var bgColor = '#C1D6FF';
-    var textColor = '#3D72D9';
-    var pressButt = false;
+    // var bgColor = '#C1D6FF';
+    // var textColor = '#3D72D9';
+    // var pressButt = false;
+    const [bgColor, setBgColor] = useState("#C1D6FF");
+    const [textColor, setTextColor] = useState("#3D72D9");
+    const [pressButt, setPressButt] = useState(false);
 
     const buttonClick = () => {
         if (pressButt) {
-            bgColor = '#C1D6FF';
-            textColor = '#3D72D9';
-            pressButt = false;
+            setBgColor('#C1D6FF');
+            setTextColor('#3D72D9');
+            setPressButt(false);
         } else {
-            bgColor = '#3D72D9';
-            textColor = '#5790FF';
-            // alert("bg color: " + bgColor + "\ntextcolor: "+ textColor)
-            pressButt = true;
+            setBgColor('#3D72D9');
+            setTextColor('#5790FF');
+            setPressButt(true);
         }
       };
 
