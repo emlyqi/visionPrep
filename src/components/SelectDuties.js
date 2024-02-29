@@ -6,7 +6,11 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { SingleInputTimeRangeField } from '@mui/x-date-pickers/SingleInputTimeRangeField';
 
 function SelectDuties () {
+  const [value, onChange] = useState(["00:00:00","00:00:00"]);
   return(
+    <div>
+      <TimeRangePicker onChange={onChange} value={value} />
+
     <Box
       width='100%'
       height='100%'
@@ -63,6 +67,7 @@ function SelectDuties () {
         </LocalizationProvider>
       </Box>
     </Box>
+    </div>
       
   );
 }
