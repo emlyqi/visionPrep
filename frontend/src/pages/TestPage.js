@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { Grid } from "@mui/material"; 
-import UploadCSV from '../components/Upload';
+import EligibleStaff from '../components/EligibleStaff';
+import SelectDuties from '../components/SelectDuties';
 
 function TestPage() {
     return ( 
@@ -15,9 +16,9 @@ function TestPage() {
                 backgroundColor='#26272B'
                 style={{width: "83rem", height: "42rem"}}
             >
-                <React.StrictMode>
-                    <UploadCSV />
-                </React.StrictMode>
+                {/* <React.StrictMode> */}
+                    <SelectDuties />
+                {/* </React.StrictMode> */}
             </Grid>
         </Grid>
     );
