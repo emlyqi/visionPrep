@@ -4,24 +4,25 @@ import UploadCSV from "../components/Upload"
 import SelectDays from "../components/SelectDays";
 import { Button } from '@mui/material';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import UploadContext from "../contexts/UploadContext";
 
-
 function UploadPage() {
-
     const [daysOfRotation, setDaysOfRotation] = useState("2");
     const [startDay, setStartDay] = useState("1");
     const [startDate, setStartDate] = useState("01/01/2021");
     const [endDate, setEndDate] = useState("12/31/2021");
-    
+
     const [active, setActive] = useState("uploadCSVPage");
+
+    let navigate = useNavigate();
 
     const buttonClick = () => {
         if (active === "uploadCSVPage") {
             setActive("selectDayPage");
         } else if (active === "selectDayPage") {
-            setActive("uploadCSVPage");
+            // setActive("uploadCSVPage");
+            navigate("/submit");
         }
     }
 
