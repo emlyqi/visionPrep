@@ -89,7 +89,7 @@ function UploadCSV() {
             onChange={handleOnChange}
           />
 
-          <Button
+          {/* <Button
             sx={{ 
               position:"absolute",
               left:"50%",
@@ -108,7 +108,7 @@ function UploadCSV() {
             }}
           >
             Import CSV
-          </Button>
+          </Button> */}
         </form>
 
         <br />
