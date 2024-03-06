@@ -63,8 +63,7 @@ function SelectDays () {
                 justifyContent='right'
                 alignItems='center'
               >
-                  <DoRButts featureName='2' />
-                  <DoRButts featureName='4' />
+                  <DoRButts />
               </Box>
             </Stack>
           </Box>
