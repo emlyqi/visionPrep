@@ -102,27 +102,27 @@ function UploadCSV() {
                 onChange={handleOnChange}
               />
 
-              <Button
-                sx={{ 
-                  position:"absolute",
-                  left:"50%",
-                  top:"11.25rem",
-                  transform:"translate(-50%,50%)",
-                  display:"block",
-                  backgroundColor:"#212121",
-                  color:"#80828A",
-                  padding:"0",
-                  ":hover": {
-                    textDecoration:"underline"
-                  },
-                }}
-                onClick={(e) => {
-                  handleOnSubmit(e);
-                }}
-              >
-                Import CSV
-              </Button>
-            </form>
+          {/* <Button
+            sx={{ 
+              position:"absolute",
+              left:"50%",
+              top:"11.25rem",
+              transform:"translate(-50%,50%)",
+              display:"block",
+              backgroundColor:"#212121",
+              color:"#80828A",
+              padding:"0",
+              ":hover": {
+                textDecoration:"underline"
+              },
+            }}
+            onClick={(e) => {
+              handleOnSubmit(e);
+            }}
+          >
+            Import CSV
+          </Button> */}
+        </form>
 
             <br />
 
