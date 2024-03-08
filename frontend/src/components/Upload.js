@@ -18,6 +18,7 @@ import Switch from '@mui/material/Switch';
 import Stack from '@mui/material/Stack';
 import csvInstructions from '../assets/csvInstructions.png';
 import Papa from "papaparse";
+import { Grid } from '@mui/material';
 
 function UploadCSV() {
   const [file, setFile] = useState();
@@ -78,16 +79,28 @@ function UploadCSV() {
   const headerKeys = Object.keys(Object.assign({}, ...array));
 
   return (
-    <div style={{ margin: 'auto'}}>
-      <div style={{ textAlign:"center"}}>
-        <form style={{ }}>
-          <input
-            style={{ position:"absolute",  left:"50%", top:"11.25rem", transform:"translate(-50%, -50%)", display:"block"}}
-            type={"file"}
-            id={"csvFileInput"}
-            accept={".csv"}
-            onChange={handleOnChange}
-          />
+    <Grid container flexGrow xs={12} minHeight='100vh' bgcolor='#34363D' justifyContent="center" alignItems="center">
+      <Grid 
+        item 
+        container
+        borderRadius='0.9375rem' 
+        alignContent='center' 
+        alignItems='flex-start'
+        backgroundColor='#26272B'
+        justifyContent='space-evenly'
+
+        style={{top: '0', bottom: '0', left: '0', right: '0', position: 'absolute', width: 'auto', height: 'auto', marginTop: '4rem', marginBottom: '4rem', marginRight: '4rem', marginLeft: '4rem'}}
+      >
+        <div style={{ margin: 'auto'}}>
+          <div style={{ textAlign:"center"}}>
+            <form style={{ }}>
+              <input
+                style={{ position:"absolute",  left:"50%", top:"11.25rem", transform:"translate(-50%, -50%)", display:"block"}}
+                type={"file"}
+                id={"csvFileInput"}
+                accept={".csv"}
+                onChange={handleOnChange}
+              />
 
           {/* <Button
             sx={{ 
@@ -111,33 +124,35 @@ function UploadCSV() {
           </Button> */}
         </form>
 
-        <br />
+            <br />
 
-        {/* <table>
-          <thead>
-            <tr key={"header"}>
-              {headerKeys.map((key) => (
-                <th>{key}</th>
-              ))}
-            </tr>
-          </thead>
+            {/* <table>
+              <thead>
+                <tr key={"header"}>
+                  {headerKeys.map((key) => (
+                    <th>{key}</th>
+                  ))}
+                </tr>
+              </thead>
 
-          <tbody>
-            {array.map((item) => (
-              <tr key={item.id}>
-                {Object.values(item).map((val) => (
-                  <td>{val}</td>
+              <tbody>
+                {array.map((item) => (
+                  <tr key={item.id}>
+                    {Object.values(item).map((val) => (
+                      <td>{val}</td>
+                    ))}
+                  </tr>
                 ))}
-              </tr>
-            ))}
-          </tbody>
-        </table> */}
+              </tbody>
+            </table> */}
 
-      </div>
+          </div>
 
-      <img src={csvInstructions} alt="CSV Format Instructions" />
-      
-    </div>
+          <img src={csvInstructions} alt="CSV Format Instructions" />
+          
+        </div>
+      </Grid>
+    </Grid>
   );
 }
 

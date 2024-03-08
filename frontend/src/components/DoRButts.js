@@ -28,9 +28,9 @@ function DoRButts () {
     const {daysOfRotationValue} = useContext(UploadContext);
     const [, setDaysOfRotation] = daysOfRotationValue;
 
-    const [bgColor, setBgColor] = useState("#C1D6FF");
-    const [textColor, setTextColor] = useState("#3D72D9");
-    const [pressButt, setPressButt] = useState(false);
+    // const [bgColor, setBgColor] = useState("#C1D6FF");
+    // const [textColor, setTextColor] = useState("#3D72D9");
+    // const [pressButt, setPressButt] = useState(false);
 
     const handleDOR = (event, newDOR) => {
         setDaysOfRotation(newDOR);
