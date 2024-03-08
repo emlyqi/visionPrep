@@ -6,6 +6,7 @@ import { Button } from '@mui/material';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { useNavigate } from "react-router-dom";
 import UploadContext from "../contexts/UploadContext";
+import SubmitSelectionsPage from "../components/SubmitSelectionsPage";
 
 function UploadPage() {
     const [daysOfRotation, setDaysOfRotation] = useState("2");
@@ -14,6 +15,10 @@ function UploadPage() {
     const [endDate, setEndDate] = useState("12/31/2021");
 
     const [active, setActive] = useState("uploadCSVPage");
+    const [rightPos, setRightPos] = useState("7.3125rem");
+    const [bottomPos, setBottomPos] = useState("7rem");
+    const [word, setWord] = useState("Next");
+    const [colour, setColour] = useState("#5790FF");
 
     let navigate = useNavigate();
 
@@ -21,9 +26,15 @@ function UploadPage() {
         if (active === "uploadCSVPage") {
             setActive("selectDayPage");
         } else if (active === "selectDayPage") {
-            // setActive("uploadCSVPage");
-            navigate("/submit");
-        }
+            setActive("submitPage");
+            setRightPos("36.625rem");
+            setBottomPos("23.375rem");
+            setWord("Submit");
+            setColour("#57DB64");
+        } 
+        // else if (active === "submitPage") {
+
+        // }
     }
 
     return (  
@@ -37,7 +48,7 @@ function UploadPage() {
         >
 
             <Grid container flexGrow xs={12} minHeight='100vh' bgcolor='#34363D' justifyContent="center" alignItems="center">
-                <Grid 
+                {/* <Grid 
                     item 
                     container
                     borderRadius='0.9375rem' 
@@ -46,11 +57,13 @@ function UploadPage() {
                     backgroundColor='#26272B'
 
                     style={{top: '0', bottom: '0', left: '0', right: '0', position: 'absolute', width: 'auto', height: 'auto', marginTop: '4.5rem', marginBottom: '4.5rem', marginRight: '4.5rem', marginLeft: '4.5rem'}}
-                >
+                > */}
 
                     <Grid container style={{top: '0', bottom: '0', left: '0', right: '0', position: 'absolute', width: 'auto', height: 'auto', marginTop: '0rem', marginBottom: '0rem', marginRight: '0rem', marginLeft: '0rem'}}>
                         {active === "uploadCSVPage" && <React.StrictMode><UploadCSV /></React.StrictMode>}
                         {active === "selectDayPage" && <SelectDays/>}
+                        {active === "submitPage" && <SubmitSelectionsPage/>}
+                        {/* {active === "viewCalendarPage"} */}
                     </Grid>
                     <Button 
                         variant = "contained" 
@@ -58,22 +71,22 @@ function UploadPage() {
                         onClick = {buttonClick}
                         sx={{
                             position: 'absolute',
-                            right: '5.3125rem',
-                            bottom: '4rem',
+                            right: rightPos,
+                            bottom: bottomPos,
                             fontFamily: 'sans-serif',
                             color: '#010101',
                             fontSize: '1.875rem',
                             borderRadius: '100px',
                             paddingX: '3.3125rem',
                             paddingY: '0.01rem',
-                            backgroundColor: '#5790FF',
+                            backgroundColor: colour,
                             textTransform: 'none',
                             svg: {width: "5rem", height: "5rem", marginRight: "-2rem"}
                     }}>
-                        Next
+                        {word}
                     </Button>
                     
-                </Grid>
+                {/* </Grid> */}
             </Grid>
         </UploadContext.Provider>
     );

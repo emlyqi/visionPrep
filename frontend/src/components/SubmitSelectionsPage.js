@@ -8,17 +8,17 @@ export default function SubmitSelectionsPage() {
     return(
       <Grid container flexGrow xs={12} minHeight='100vh' bgcolor='#34363D' justifyContent="center" alignItems="center">
         <Grid 
-            item 
-            container
-            borderRadius='0.9375rem' 
-            justifyContent='center' 
-            alignContent='center' 
-            backgroundColor='#26272B'
-            rowSpacing='2rem'
+          item 
+          container
+          borderRadius='0.9375rem' 
+          alignContent='center' 
+          alignItems='flex-start'
+          backgroundColor='#26272B'
+          justifyContent='space-evenly'
 
-            style={{top: '0', bottom: '0', left: '0', right: '0', position: 'absolute', width: 'auto', height: 'auto', marginTop: '4.5rem', marginBottom: '4.5rem', marginRight: '4.5rem', marginLeft: '4.5rem'}}
+          style={{top: '0', bottom: '0', left: '0', right: '0', position: 'absolute', width: 'auto', height: 'auto', marginTop: '4rem', marginBottom: '4rem', marginRight: '4rem', marginLeft: '4rem'}}
         >
-          <Grid 
+          {/* <Grid 
           container
             item 
             xs={12} 
@@ -70,7 +70,7 @@ export default function SubmitSelectionsPage() {
             >
               Back
             </Button>
-          </Grid>
+          </Grid> */}
         </Grid>
       </Grid>
     

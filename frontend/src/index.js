@@ -7,7 +7,7 @@ import AboutPage from './pages/AboutPage';
 import reportWebVitals from './reportWebVitals';
 import UploadPage from './pages/UploadPage';
 import TestPage from './pages/TestPage';
-import SubmitSelectionsPage from './pages/SubmitSelectionsPage';
+// import SubmitSelectionsPage from './pages/SubmitSelectionsPage';
 import {
   createBrowserRouter,
   RouterProvider,
@@ -30,10 +30,10 @@ const router = createBrowserRouter([
     path: "test",
     element: <TestPage/>,
   },
-  {
-    path: "submit",
-    element: <SubmitSelectionsPage/>,
-  },
+  // {
+  //   path: "submit",
+  //   element: <SubmitSelectionsPage/>,
+  // },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
