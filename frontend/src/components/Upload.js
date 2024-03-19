@@ -51,6 +51,9 @@ function UploadCSV() {
     });
 
     setArray(array);
+
+    const {staffArray} = useContext(UploadContext);
+    const [, setStaff] = array;
   };
 
   const handleOnSubmit = (e) => {

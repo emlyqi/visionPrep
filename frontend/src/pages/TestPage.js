@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Grid } from "@mui/material"; 
 import EligibleStaff from '../components/EligibleStaff';
 import SelectDuties from '../components/SelectDuties';
-import ViewCalendar from "../components/ViewCalendar";
+import TestComponent from "../components/TestComponent";
 
 function TestPage() {
     return ( 
@@ -23,7 +23,7 @@ function TestPage() {
         //     </Grid>
         // </Grid>
 
-        <ViewCalendar />
+        <TestComponent />
     );
 }
 
