@@ -14,7 +14,7 @@ function UploadPage() {
     const [startDate, setStartDate] = useState("01/01/2021");
     const [endDate, setEndDate] = useState("12/31/2021");
     const [calendarMonth, setcalendarMonth] = useState(1);
-    const [staffArray, setStaffArray] = useState([]);
+    const [staffArray, setStaffArray] = useState([{staffName:"Edwards", load: "1", d1: "x", d2: "x", d3: "", d4: "x", gym: ""}]);
 
     const [active, setActive] = useState("uploadCSVPage");
     const [rightPos, setRightPos] = useState("7.3125rem");
