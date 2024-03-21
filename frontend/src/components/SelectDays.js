@@ -1,17 +1,18 @@
-import * as React from 'react';
-import { Stack, Box, Grid } from '@mui/material';
+import React, { useContext, useState } from 'react';
+import { Stack, Box, Grid, FormControl, MenuItem } from '@mui/material';
 import DoRButts from "./DoRButts";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
 import Select from '@mui/material/Select';
-import CalendarDate from './CalendarDate'
+import CalendarDate from './CalendarDate';
+import UploadContext from '../contexts/UploadContext';
 
 function SelectDays () {
-
-  const [startDay, setStartDay] = React.useState('');
+  const {startDayValue} = useContext(UploadContext);
+  const [, setStartDay] = startDayValue;
+  const [startDayz, setStartDayz] = useState('');
 
   const handleChange = (event) => {
-    setStartDay(event.target.value);
+    setStartDayz(event.target.value);
+    setStartDay(startDayz);
   }
 
     return(
@@ -129,26 +130,26 @@ function SelectDays () {
                   display='flex'
                   paddingLeft='1.5625rem'
                 >
-                    <FormControl sx={{m:1, minWidth: "9.375rem", Height: "3.83rem"}}>
-                      <Select
-                        value={startDay}
-                        onChange={handleChange}
-                        id="selectStartDay"
-                        sx={{
-                          boxShadow: 'none', backgroundColor: '#C1D6FF', borderRadius: '100px', textAlign: 'center', fontSize: '1.5625rem', fontWeight: 'bold', fontFamily: 'sans-serif',  color: '#3D72D9',
-                          svg: {color: "#3D72D9", width: "3rem", height: "3rem", marginTop: "-0.7rem", marginRight: "0.4rem"},
-                          '.MuiOutlinedInput-notchedOutline': {border:0}
-                        }}
-                      >
-                        <MenuItem value="">
-                          <em>None</em>
-                        </MenuItem>
-                        <MenuItem value={1}>1</MenuItem>
-                        <MenuItem value={2}>2</MenuItem>
-                        <MenuItem value={3}>3</MenuItem>
-                        <MenuItem value={4}>4</MenuItem>
-                      </Select>
-                    </FormControl>
+                  <FormControl sx={{m:1, minWidth: "9.375rem", Height: "3.83rem"}}>
+                    <Select
+                      value={startDayz}
+                      onChange={handleChange}
+                      id="selectStartDay"
+                      sx={{
+                        boxShadow: 'none', backgroundColor: '#C1D6FF', borderRadius: '100px', textAlign: 'center', fontSize: '1.5625rem', fontWeight: 'bold', fontFamily: 'sans-serif',  color: '#3D72D9',
+                        svg: {color: "#3D72D9", width: "3rem", height: "3rem", marginTop: "-0.7rem", marginRight: "0.4rem"},
+                        '.MuiOutlinedInput-notchedOutline': {border:0}
+                      }}
+                    >
+                      <MenuItem value="">
+                        <em>None</em>
+                      </MenuItem>
+                      <MenuItem value={1}>1</MenuItem>
+                      <MenuItem value={2}>2</MenuItem>
+                      <MenuItem value={3}>3</MenuItem>
+                      <MenuItem value={4}>4</MenuItem>
+                    </Select>
+                  </FormControl>
                 </Box>
               </Stack>
             </Box>
