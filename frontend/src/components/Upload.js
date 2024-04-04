@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -19,6 +19,7 @@ import Stack from '@mui/material/Stack';
 import csvInstructions from '../assets/csvInstructions.png';
 import Papa from "papaparse";
 import { Grid } from '@mui/material';
+import UploadContext from "../contexts/UploadContext";
 
 function UploadCSV() {
   const [file, setFile] = useState();
@@ -26,35 +27,36 @@ function UploadCSV() {
 
   const fileReader = new FileReader();
 
+  const {staffArrayValue} = useContext(UploadContext);
+  const [, setStaffArray] = staffArrayValue;
+
   const handleOnChange = (e) => {
     setFile(e.target.files[0]);
     Papa.parse(e.target.files[0], {
       header: true,
       skipEmptyLines: true,
       complete: function(results) {
-        console.log(results.data)
+        setStaffArray(results.data);
       },
     });
   };
 
-  const csvFileToArray = string => {
-    const csvHeader = string.slice(0, string.indexOf("\n")).split(",");
-    const csvRows = string.slice(string.indexOf("\n") + 1).split("\n");
+  // const csvFileToArray = string => {
+  //   const csvHeader = string.slice(0, string.indexOf("\n")).split(",");
+  //   const csvRows = string.slice(string.indexOf("\n") + 1).split("\n");
 
-    const array = csvRows.map(i => {
-      const values = i.split(",");
-      const obj = csvHeader.reduce((object, header, index) => {
-        object[header] = values[index];
-        return object;
-      }, {});
-      return obj;
-    });
+  //   const array = csvRows.map(i => {
+  //     const values = i.split(",");
+  //     const obj = csvHeader.reduce((object, header, index) => {
+  //       object[header] = values[index];
+  //       return object;
+  //     }, {});
+  //     return obj;
+  //   });
 
-    setArray(array);
-
-    const {staffArray} = useContext(UploadContext);
-    const [, setStaff] = array;
-  };
+  //   setArray(array);
+  //   console.log("please omg", array);
+  // };
 
   const handleOnSubmit = (e) => {
     e.preventDefault();
@@ -62,7 +64,7 @@ function UploadCSV() {
     if (file) {
       fileReader.onload = function (event) {
         const text = event.target.result;
-        csvFileToArray(text);
+        // csvFileToArray(text);
       };
 
       fileReader.readAsText(file);

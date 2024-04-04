@@ -17,9 +17,79 @@ export default function ViewCalendar() {
     
     const [date, setDate] = useState(new Date());
 
-    console.log("hi", staffArrayValue);
+    var canGym = [];
+    var d1 = [];
+    var d2 = [];
+    var d3 = [];
+    var d4 = [];
+    var orderedGym = [];
+    var orderedStaff = [];
+    var placedStaff = [];
 
-    console.log(staffArrayValue[0][0].Staff);
+    for (var i = 0; i < staffArrayValue[0].length; i++) {
+        if (staffArrayValue[0][i].Gym == "x") {
+            canGym.push(staffArrayValue[0][i].Staff);
+        }
+        else if (staffArrayValue[0][i].Day1 == "x") {
+            d1.push(staffArrayValue[0][i].Staff);
+        }
+        else if (staffArrayValue[0][i].Day2 == "x") {
+            d2.push(staffArrayValue[0][i].Staff);
+        }
+        else if (staffArrayValue[0][i].Day2 == "x") {
+            d3.push(staffArrayValue[0][i].Staff);
+        }
+        else if (staffArrayValue[0][i].Day2 == "x") {
+            d4.push(staffArrayValue[0][i].Staff);
+        }
+    }
+
+    // gym teacher placement
+    // idk what is going on with this ??!?!?
+    var placedGym = [];
+    const numDays = 12;
+    var dayNum = 1;
+    var placedGymTrue = false;
+
+    for (var i = 0; i < numDays; i++) {
+        var currDay = "Day" + dayNum;
+        placedGymTrue = false;
+        for (var j = 0; j < canGym.length; j++) { 
+            if (placedGym.includes(canGym[j]) == false) {
+                var tempIndex = staffArrayValue[0].findIndex(item => item.Staff === canGym[j]);
+                var varProperty = currDay;
+                console.log("of interest probably", canGym[j], tempIndex);
+                if (tempIndex != -1) {
+                    if (staffArrayValue[0][tempIndex][varProperty] == "x" && placedGym.includes(canGym[j]) == false) {
+                        placedGym.push(canGym[j]);
+                        orderedGym.push(canGym[j]);
+                        console.log("early gym ones", placedGym, orderedGym);
+                        placedGymTrue = true;
+                    }
+                }
+            }
+
+            if (placedGymTrue == true) {
+                break;
+            }
+        }
+        
+        if (placedGymTrue == false) {
+            orderedGym.push("");
+        }
+
+        if (dayNum < 4) {
+            dayNum ++;
+        } else {
+            dayNum = 1;
+        }
+    }
+
+    console.log("gym ones", orderedGym, placedGym);
+
+    console.log("canGym", canGym);
+    console.log("staffarrayvalue", staffArrayValue)
+
     return (
         <Box>
             <Box>
