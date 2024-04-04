@@ -45,7 +45,7 @@ export default function ViewCalendar() {
     }
 
     // gym teacher placement
-    // idk what is going on with this ??!?!?
+    // see things to add doc
     var placedGym = [];
     const numDays = 12;
     var dayNum = 1;
@@ -58,12 +58,10 @@ export default function ViewCalendar() {
             if (placedGym.includes(canGym[j]) == false) {
                 var tempIndex = staffArrayValue[0].findIndex(item => item.Staff === canGym[j]);
                 var varProperty = currDay;
-                console.log("of interest probably", canGym[j], tempIndex);
                 if (tempIndex != -1) {
                     if (staffArrayValue[0][tempIndex][varProperty] == "x" && placedGym.includes(canGym[j]) == false) {
                         placedGym.push(canGym[j]);
                         orderedGym.push(canGym[j]);
-                        console.log("early gym ones", placedGym, orderedGym);
                         placedGymTrue = true;
                     }
                 }
@@ -86,9 +84,6 @@ export default function ViewCalendar() {
     }
 
     console.log("gym ones", orderedGym, placedGym);
-
-    console.log("canGym", canGym);
-    console.log("staffarrayvalue", staffArrayValue)
 
     return (
         <Box>
