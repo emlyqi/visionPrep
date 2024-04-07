@@ -203,6 +203,10 @@ export default function ViewCalendar() {
 
     console.log("staff arrays", staffArrayCopy, placedStaff, orderedStaff);
 
+    for (var i = 0; i < staffArrayValue[0].length; i++) {
+        staffArrayValue[0][i].ShiftsAdded = 0;
+    }
+
     return (
         <Box>
         </Box>

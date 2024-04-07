@@ -20,6 +20,7 @@ import csvInstructions from '../assets/csvInstructions.png';
 import Papa from "papaparse";
 import { Grid } from '@mui/material';
 import UploadContext from "../contexts/UploadContext";
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 
 function UploadCSV() {
   const [file, setFile] = useState();
@@ -55,21 +56,20 @@ function UploadCSV() {
   //   });
 
   //   setArray(array);
-  //   console.log("please omg", array);
   // };
 
-  const handleOnSubmit = (e) => {
-    e.preventDefault();
+  // const handleOnSubmit = (e) => {
+  //   e.preventDefault();
 
-    if (file) {
-      fileReader.onload = function (event) {
-        const text = event.target.result;
-        // csvFileToArray(text);
-      };
+  //   if (file) {
+  //     fileReader.onload = function (event) {
+  //       const text = event.target.result;
+  //       // csvFileToArray(text);
+  //     };
 
-      fileReader.readAsText(file);
-    }
-  };
+  //     fileReader.readAsText(file);
+  //   }
+  // };
 
   // const changeHandler = (e) => {
   //   Papa.parse(e.target.files[0], {
@@ -81,7 +81,7 @@ function UploadCSV() {
   //   });
   // }
 
-  const headerKeys = Object.keys(Object.assign({}, ...array));
+  // const headerKeys = Object.keys(Object.assign({}, ...array));
 
   return (
     <Grid container flexGrow xs={12} minHeight='100vh' bgcolor='#34363D' justifyContent="center" alignItems="center">
@@ -98,14 +98,43 @@ function UploadCSV() {
       >
         <div style={{ margin: 'auto'}}>
           <div style={{ textAlign:"center"}}>
-            <form style={{ }}>
+          <label htmlFor="csvFileInput">
+            <input style={{ display: "none" }}
+              type = "file"
+              accept = ".csv"
+              id = "csvFileInput"
+              onChange = {handleOnChange}
+            />
+            <Button
+              variant = "contained"
+              startIcon = {<FileUploadIcon />}
+              component = "span"
+              sx={{
+                position: 'absolute',
+                right: '5rem',
+                bottom: '5rem',
+                fontFamily: 'sans-serif',
+                color: '#010101',
+                fontSize: '1.875rem',
+                borderRadius: '100px',
+                paddingX: '3.3125rem',
+                paddingY: '0.01rem',
+                backgroundColor: '#5790FF',
+                textTransform: 'none',
+                svg: {width: "5rem", height: "5rem", marginRight: "0rem"}
+              }}
+            >
+              Upload CSV
+            </Button>
+          </label>;
+            {/* <form style={{ }}>
               <input
                 style={{ position:"absolute",  left:"50%", top:"11.25rem", transform:"translate(-50%, -50%)", display:"block"}}
                 type={"file"}
                 id={"csvFileInput"}
                 accept={".csv"}
                 onChange={handleOnChange}
-              />
+              /> */}
 
           {/* <Button
             sx={{ 
@@ -127,7 +156,7 @@ function UploadCSV() {
           >
             Import CSV
           </Button> */}
-        </form>
+        {/* </form> */}
 
             <br />
 
