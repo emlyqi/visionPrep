@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Link } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -19,6 +19,8 @@ import Stack from '@mui/material/Stack';
 import csvInstructions from '../assets/csvInstructions.png';
 import Papa from "papaparse";
 import { Grid } from '@mui/material';
+import UploadContext from "../contexts/UploadContext";
+import FileUploadIcon from '@mui/icons-material/FileUpload';
 
 function UploadCSV() {
   const [file, setFile] = useState();
@@ -26,48 +28,48 @@ function UploadCSV() {
 
   const fileReader = new FileReader();
 
+  const {staffArrayValue} = useContext(UploadContext);
+  const [, setStaffArray] = staffArrayValue;
+
   const handleOnChange = (e) => {
     setFile(e.target.files[0]);
     Papa.parse(e.target.files[0], {
       header: true,
       skipEmptyLines: true,
       complete: function(results) {
-        console.log(results.data)
+        setStaffArray(results.data);
       },
     });
   };
 
-  const csvFileToArray = string => {
-    const csvHeader = string.slice(0, string.indexOf("\n")).split(",");
-    const csvRows = string.slice(string.indexOf("\n") + 1).split("\n");
+  // const csvFileToArray = string => {
+  //   const csvHeader = string.slice(0, string.indexOf("\n")).split(",");
+  //   const csvRows = string.slice(string.indexOf("\n") + 1).split("\n");
 
-    const array = csvRows.map(i => {
-      const values = i.split(",");
-      const obj = csvHeader.reduce((object, header, index) => {
-        object[header] = values[index];
-        return object;
-      }, {});
-      return obj;
-    });
+  //   const array = csvRows.map(i => {
+  //     const values = i.split(",");
+  //     const obj = csvHeader.reduce((object, header, index) => {
+  //       object[header] = values[index];
+  //       return object;
+  //     }, {});
+  //     return obj;
+  //   });
 
-    setArray(array);
+  //   setArray(array);
+  // };
 
-    // const {staffArray} = useContext(UploadContext);
-    // const [, setStaff] = array;
-  };
+  // const handleOnSubmit = (e) => {
+  //   e.preventDefault();
 
-  const handleOnSubmit = (e) => {
-    e.preventDefault();
+  //   if (file) {
+  //     fileReader.onload = function (event) {
+  //       const text = event.target.result;
+  //       // csvFileToArray(text);
+  //     };
 
-    if (file) {
-      fileReader.onload = function (event) {
-        const text = event.target.result;
-        csvFileToArray(text);
-      };
-
-      fileReader.readAsText(file);
-    }
-  };
+  //     fileReader.readAsText(file);
+  //   }
+  // };
 
   // const changeHandler = (e) => {
   //   Papa.parse(e.target.files[0], {
@@ -79,7 +81,7 @@ function UploadCSV() {
   //   });
   // }
 
-  const headerKeys = Object.keys(Object.assign({}, ...array));
+  // const headerKeys = Object.keys(Object.assign({}, ...array));
 
   return (
     <Grid container flexGrow xs={12} minHeight='100vh' bgcolor='#34363D' justifyContent="center" alignItems="center">
@@ -96,14 +98,43 @@ function UploadCSV() {
       >
         <div style={{ margin: 'auto'}}>
           <div style={{ textAlign:"center"}}>
-            <form style={{ }}>
+          <label htmlFor="csvFileInput">
+            <input style={{ display: "none" }}
+              type = "file"
+              accept = ".csv"
+              id = "csvFileInput"
+              onChange = {handleOnChange}
+            />
+            <Button
+              variant = "contained"
+              startIcon = {<FileUploadIcon />}
+              component = "span"
+              sx={{
+                position: 'absolute',
+                right: '5rem',
+                bottom: '5rem',
+                fontFamily: 'sans-serif',
+                color: '#010101',
+                fontSize: '1.875rem',
+                borderRadius: '100px',
+                paddingX: '3.3125rem',
+                paddingY: '0.01rem',
+                backgroundColor: '#5790FF',
+                textTransform: 'none',
+                svg: {width: "5rem", height: "5rem", marginRight: "0rem"}
+              }}
+            >
+              Upload CSV
+            </Button>
+          </label>;
+            {/* <form style={{ }}>
               <input
                 style={{ position:"absolute",  left:"50%", top:"11.25rem", transform:"translate(-50%, -50%)", display:"block"}}
                 type={"file"}
                 id={"csvFileInput"}
                 accept={".csv"}
                 onChange={handleOnChange}
-              />
+              /> */}
 
           {/* <Button
             sx={{ 
@@ -125,7 +156,7 @@ function UploadCSV() {
           >
             Import CSV
           </Button> */}
-        </form>
+        {/* </form> */}
 
             <br />
 

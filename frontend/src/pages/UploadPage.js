@@ -15,7 +15,7 @@ function UploadPage() {
     const [startDate, setStartDate] = useState("2024/4/17");
     const [endDate, setEndDate] = useState("2024/4/17");
     const [calendarMonth, setcalendarMonth] = useState(1);
-    const [staffArray, setStaffArray] = useState([{staffName:"Edwards", load: "1", d1: "x", d2: "x", d3: "", d4: "x", gym: ""}]);
+    const [staffArray, setStaffArray] = useState([{Staff: "C. Edwards", Load: "1", ShiftsLeft: "40", Day1: "x", Day2: "x", Day3: "", Day4: "x", Gym: ""}]);
 
     const [active, setActive] = useState("uploadCSVPage");
     const [rightPos, setRightPos] = useState("7.3125rem");
@@ -53,8 +53,7 @@ function UploadPage() {
                 startDayValue: [startDay, setStartDay],
                 startDateValue: [startDate, setStartDate],
                 endDateValue: [endDate, setEndDate],
-                calendarMonthValue: [calendarMonth, setcalendarMonth],
-                staffArrayValue: [staffArray, setStaffArray],
+                staffArrayValue: [staffArray, setStaffArray]
             }}
         >
 
@@ -100,6 +99,7 @@ function UploadPage() {
                     </Button>
                     
                 {/* </Grid> */}
+                <TestComponent />
             </Grid>
         </UploadContext.Provider>
     );
