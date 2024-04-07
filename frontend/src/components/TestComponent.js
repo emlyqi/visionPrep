@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import { Box } from "@mui/material";
 import UploadContext from "../contexts/UploadContext";
+import { findAllByDisplayValue } from "@testing-library/react";
 
 export default function ViewCalendar() {
 
@@ -18,52 +19,38 @@ export default function ViewCalendar() {
     const [date, setDate] = useState(new Date());
 
     var canGym = [];
-    var d1 = [];
-    var d2 = [];
-    var d3 = [];
-    var d4 = [];
+    var staffArrayCopy = [];
 
     for (var i = 0; i < staffArrayValue[0].length; i++) {
         if (staffArrayValue[0][i].Gym == "x" && (staffArrayValue[0][i].Day1 == "x" || staffArrayValue[0][i].Day2 == "x" || staffArrayValue[0][i].Day3 == "x" || staffArrayValue[0][i].Day4 == "x")) {
             canGym.push(staffArrayValue[0][i].Staff);
         }
-        else if (staffArrayValue[0][i].Day1 == "x") {
-            d1.push(staffArrayValue[0][i].Staff);
-        }
-        else if (staffArrayValue[0][i].Day2 == "x") {
-            d2.push(staffArrayValue[0][i].Staff);
-        }
-        else if (staffArrayValue[0][i].Day3 == "x") {
-            d3.push(staffArrayValue[0][i].Staff);
-        }
-        else if (staffArrayValue[0][i].Day4 == "x") {
-            d4.push(staffArrayValue[0][i].Staff);
+        else {
+            staffArrayCopy.push(staffArrayValue[0][i].Staff);
         }
     }
 
-    var orderedStaff = [];
-    var placedStaff = [];
-
-    // gym teacher placement
-    // see things to add doc
-    var orderedGym = [];
-    var placedGym = [];
     const numDays = 30;
     var dayNum = 1;
+
+    // gym teacher placement 
+    var orderedGym = [];
+    var placedGym = [];
     var placedGymTrue = false;
     var placedGymTrue2 = false;
 
     shuffle(canGym); 
-
     for (var i = 0; i < numDays; i++) {
         var currDay = "Day" + dayNum;
+
         placedGymTrue = false;
         for (var j = 0; j < canGym.length; j++) { 
             if ((placedGym.includes(canGym[j]) == false) || (canGym.length != 0 && placedGym.length == canGym.length)) {
                 var tempIndex = staffArrayValue[0].findIndex(item => item.Staff === canGym[j]);
                 var varProperty = currDay;
-                if (staffArrayValue[0][tempIndex][varProperty] == "x" && placedGym.includes(canGym[j]) == false) {
+                if (staffArrayValue[0][tempIndex][varProperty] == "x" && placedGym.includes(canGym[j]) == false && staffArrayValue[0][tempIndex].ShiftsAdded < staffArrayValue[0][tempIndex].ShiftsLeft) {
                     placedGym.push(canGym[j]);
+                    staffArrayValue[0][tempIndex].ShiftsAdded++;
                     orderedGym.push(canGym[j]);
                     placedGymTrue = true;
                     break;
@@ -80,10 +67,11 @@ export default function ViewCalendar() {
             for (var j = 0; j < canGymCopy.length; j++) {
                 var tempIndex2 = staffArrayValue[0].findIndex(item => item.Staff === canGymCopy[j]);
                 var varProperty2 = currDay;
-                if (staffArrayValue[0][tempIndex2][varProperty2] == "x") {
+                if (staffArrayValue[0][tempIndex2][varProperty2] == "x" && staffArrayValue[0][tempIndex2].ShiftsAdded < staffArrayValue[0][tempIndex2].ShiftsLeft) {
                     if (placedGym.includes(canGymCopy[j]) == false) {
                         placedGym.push(canGymCopy[j]);
                     }
+                    staffArrayValue[0][tempIndex2].ShiftsAdded++;
                     orderedGym.push(canGymCopy[j]);
                     placedGymTrue = true;
                     placedGymTrue2 = true;
@@ -94,6 +82,7 @@ export default function ViewCalendar() {
 
         if (canGym.length != 0 && placedGym.length == canGym.length) {
             if (currDay == "Day4") {
+                dayNum = 1;
                 break;
             }
         }
@@ -112,7 +101,7 @@ export default function ViewCalendar() {
 
     var numGymRepetitions = Math.floor(numDays/orderedGym.length);
 
-    var tempGymArray = orderedGym
+    var tempGymArray = orderedGym;
     for (var i = 0; i < numGymRepetitions-1; i++) {
         orderedGym = orderedGym.concat(tempGymArray);
     }
@@ -123,7 +112,96 @@ export default function ViewCalendar() {
         gymStartIndex ++;
     }
 
-    console.log("gym array", canGym, placedGym, orderedGym);
+    console.log("gym arrays", canGym, placedGym, orderedGym);
+
+    //non-gym teacher placement
+    var orderedStaff = Array.from({length: numDays}, () => Array(7).fill(""));
+    var placedStaff = [];
+    var placedStaffTrue = false;
+    var placedStaffTrue2 = false;
+
+    shuffle(staffArrayCopy); 
+    for (var i = 0; i < numDays; i++) {
+        var currDay = "Day" + dayNum;
+        placedStaffTrue = false;
+        for (var k = 0; k < 7; k++) {
+            for (var j = 0; j < staffArrayCopy.length; j++) { 
+                if ((placedStaff.includes(staffArrayCopy[j]) == false && orderedStaff[i].includes(staffArrayCopy[j] == false)) || (staffArrayCopy.length != 0 && placedStaff.length == staffArrayCopy.length && orderedStaff[i].includes(staffArrayCopy[j] == false))) {
+                    var tempIndex = staffArrayValue[0].findIndex(item => item.Staff === staffArrayCopy[j]);
+                    var varProperty = currDay;
+                    if (staffArrayValue[0][tempIndex].ShiftsAdded < staffArrayValue[0][tempIndex].ShiftsLeft) {
+                        if (staffArrayValue[0][tempIndex][varProperty] == "x") {
+                            placedStaff.push(staffArrayCopy[j]);
+                            staffArrayValue[0][tempIndex].ShiftsAdded++;
+                            orderedStaff[i][k] = staffArrayCopy[j];
+                            placedStaffTrue = true;
+                            break;
+                        }
+                    }
+                }
+            } 
+        }
+
+        if (placedStaffTrue == false) {
+            // if no one can supervise on that day, use someone that has already been placed for supervision 
+            // but shuffle the list order so they aren't used as backup every time
+            var staffArrayCopyCopy = staffArrayCopy;
+            shuffle(staffArrayCopyCopy);
+            placedStaffTrue2 = false;
+            for (var k = 0; k < 7; k++) {
+                for (var j = 0; j < staffArrayCopyCopy.length; j++) {
+                    var tempIndex2 = staffArrayValue[0].findIndex(item => item.Staff === staffArrayCopyCopy[j]);
+                    var varProperty2 = currDay;
+                    if (orderedStaff[i].includes(staffArrayCopyCopy[j]) == false && staffArrayValue[0][tempIndex2].ShiftsAdded < staffArrayValue[0][tempIndex2].ShiftsLeft) {
+                        if (staffArrayValue[0][tempIndex2][varProperty2] == "x") {
+                            if (placedStaff.includes(staffArrayCopy[j]) == false) {
+                                placedStaff.push(staffArrayCopyCopy[j]);
+                            }
+                            staffArrayValue[0][tempIndex2].ShiftsAdded++;
+                            orderedStaff[i][k] = staffArrayCopyCopy[j];
+                            placedStaffTrue = true;
+                            placedStaffTrue2 = true;
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+
+        if (staffArrayCopy.length != 0 && placedStaff.length == staffArrayCopy.length) {
+            if (currDay == "Day4") {
+                var stoppedAt = i;
+                break;
+            }
+        }
+
+        // if (placedStaffTrue == false) {
+        //     orderedStaff[i].push("");
+        // }
+
+        if (dayNum < 4) {
+            dayNum ++;
+        } else {
+            dayNum = 1;
+        }
+    }
+
+    orderedStaff.splice(stoppedAt+1);
+
+    var numStaffRepetitions = Math.floor(numDays/orderedStaff.length);
+
+    var tempStaffArray = orderedStaff;
+    for (var i = 0; i < numStaffRepetitions-1; i++) {
+        orderedStaff = orderedStaff.concat(tempStaffArray);
+    }
+
+    var staffStartIndex = 0; 
+    for (var i = orderedStaff.length; i < numDays; i++) {
+        orderedStaff.push(tempStaffArray[staffStartIndex]);
+        staffStartIndex ++;
+    }
+
+    console.log("staff arrays", staffArrayCopy, placedStaff, orderedStaff);
 
     return (
         <Box>
