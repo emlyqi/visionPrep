@@ -11,8 +11,8 @@ function SelectDays () {
   const [startDayz, setStartDayz] = useState('');
 
   const handleChange = (event) => {
-    setStartDayz(event.target.value);
-    setStartDay(startDayz);
+    setStartDayz(event.target.value); //the value is an integer between 1-4 @ startDayValue[0]
+    setStartDay(event.target.value); //the value is an integer between 1-4 @ startDayValue[0]
   }
 
     return(
@@ -86,7 +86,7 @@ function SelectDays () {
               marginBottom: '0rem'
             }}
             >Start Date</p>
-            <CalendarDate/>
+            <CalendarDate startEnd='start'/>
           </Box>
 
           <Box
@@ -161,7 +161,7 @@ function SelectDays () {
               marginBottom: '0rem'
             }}
             >End Date</p>
-            <CalendarDate/>
+            <CalendarDate startEnd='end'/>
           </Box>
         </Grid>
       </Box>

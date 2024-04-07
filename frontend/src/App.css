@@ -36,3 +36,34 @@
     transform: rotate(360deg);
   }
 }
+
+.ag-theme-quartz {
+  --ag-foreground-color: #55575E;
+  --ag-background-color: #E1EBFF;
+  --ag-header-foreground-color: #55575E;
+  --ag-header-background-color: #ffffff;
+  --ag-row-border-color: #ffffff;
+  --ag-border-color: #ffffff;
+  --ag-font-size: 0.5rem;
+  --ag-grid-size: 0rem;
+  --ag-row-height: 1rem;
+}
+
+.ag-subtitle {
+  --ag-foreground-color: #ffffff;
+  --ag-background-color: #455A85;
+  --ag-row-border-color: #ffffff;
+  --ag-border-color: #ffffff;
+  --ag-font-size: 0.7rem;
+}
+
+.ag-fixed {
+  --ag-foreground-color: #ffffff;
+  --ag-background-color: #6D98EB;
+  --ag-row-border-color: #ffffff;
+  --ag-border-color: #ffffff;
+}
+
+.center-aligned-group-header .ag-header-group-cell-label {
+  justify-content: center;
+}

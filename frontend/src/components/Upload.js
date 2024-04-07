@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Link } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -52,8 +52,8 @@ function UploadCSV() {
 
     setArray(array);
 
-    const {staffArray} = useContext(UploadContext);
-    const [, setStaff] = array;
+    // const {staffArray} = useContext(UploadContext);
+    // const [, setStaff] = array;
   };
 
   const handleOnSubmit = (e) => {
