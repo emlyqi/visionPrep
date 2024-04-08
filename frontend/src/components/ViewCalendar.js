@@ -19,7 +19,6 @@ export default function ViewCalendar() {
     const [, setStartDate] = startDateValue;
     const [, setEndDate] = endDateValue;
     const [, setStaffArray] = staffArrayValue;
-    console.log(staffArrayValue)
     // const [, setcalendarMonth] = calendarMonthValue;
     
     const duties = ["Cafeteria 1", "Cafeteria 2", "Gym/Weight Room", "Bleachers", "Library", "Foyer", "Rover 1", "Rover 2", "Guidance"];
@@ -38,7 +37,6 @@ export default function ViewCalendar() {
     commenceDate.setDate(commenceDate.getDate()+1);
     const startingDate = new Date(startDateValue[0]);
     startingDate.setDate(commenceDate.getDate());
-    console.log(startingDate);
     const endingDate = new Date (endDateValue[0]);
     endingDate.setDate(endingDate.getDate()+1);
     const endingsDate = new Date (endDateValue[0]);
@@ -46,7 +44,6 @@ export default function ViewCalendar() {
     const dayWeekNum = commenceDate.getDay();
     const endDayWeekNum = endingDate.getDay();
     var tempStartingDay = startDayValue[0];
-    console.log(tempStartingDay)
     var tempDOR = daysOfRotationValue[0];
 
     for (var i=0; i<staffArrayValue[0].length; i++) {
@@ -66,10 +63,6 @@ export default function ViewCalendar() {
         commenceDate.setDate(commenceDate.getDate()+2);
     }
 
-    // console.log("date: " + commenceDate)
-
-    // console.log(endingDate)
-    // console.log(endDayWeekNum)
     if (endDayWeekNum < 1) {
         endingDate.setDate(endingDate.getDate()-2);
     }
@@ -81,20 +74,9 @@ export default function ViewCalendar() {
         endingDate.setDate(endingDate.getDate()+diffEndDates);
     }
 
-    // console.log (endingDate)
-
-    // datesArray.push((commenceDate.getMonth() + 1).toString() + "/" + (commenceDate.getDate()).toString() + "/" + (commenceDate.getFullYear()).toString() + " | Day");
-    
-    // console.log(datesArray);
-
-    // var plus = endingDate.getDate()+1
-
-
-
     while (commenceDate <= endingDate) {
         if (commenceDate.getDay()<=5 && commenceDate.getDay()>=1){
             if (commenceDate<startingDate) {
-                console.log("less")
                 datesArray.push((commenceDate.getMonth() + 1).toString() + "/" + (commenceDate.getDate()).toString() + "/" + (commenceDate.getFullYear()).toString() + " | N/A");
             }
             else if (commenceDate>endingsDate) {
@@ -111,8 +93,6 @@ export default function ViewCalendar() {
         }
         commenceDate.setDate(commenceDate.getDate()+1);
     }
-
-    console.log(datesArray)
 
     numDays = (datesArray.length)-diffEndDates-diffStartDates;
 
@@ -137,8 +117,6 @@ export default function ViewCalendar() {
         var filledStaff = false;
 
         const newData = [];
-
-        // console.log("date: " + commenceDate + " weday:" + dayWeekNum)
 
         var orderedStaff = Array.from({length: numDays}, () => Array(8).fill(""));
 
@@ -234,8 +212,6 @@ export default function ViewCalendar() {
             orderedGym.push(tempGymArray[gymStartIndex]);
             gymStartIndex ++;
         }
-    
-        console.log("gym arrays", canGym, placedGym, orderedGym);
 
         for (var z=0; z<diffStartDates; z++) {
             orderedGym.unshift("");
@@ -272,7 +248,6 @@ export default function ViewCalendar() {
                                 staffArrayValue[0][tempIndex].ShiftsAdded++;
                                 orderedStaff[i][k] = staffArrayCopy[j];
                                 placedStaffTrue = true;
-                                // console.log("nop: " + duties.length)
                                 if (i == numDays-1 && k == duties.length-1-2) {
                                     filledStaff = true;
                                 }
@@ -304,7 +279,6 @@ export default function ViewCalendar() {
                                 orderedStaff[i][k] = staffArrayCopyCopy[j];
                                 placedStaffTrue = true;
                                 placedStaffTrue2 = true;
-                                // console.log("yep: " + duties.length)
                                 if (i === numDays-1 && k === duties.length-1-2) {
                                     filledStaff = true;
                                 }
@@ -356,7 +330,6 @@ export default function ViewCalendar() {
         staffStartIndex ++;
     }
 
-    console.log("staff arrays", staffArrayCopy, placedStaff, orderedStaff);
 
     for (var h=0; h<diffStartDates; h++) {
         orderedStaff.unshift(['','','','','','','', ''])
@@ -366,7 +339,6 @@ export default function ViewCalendar() {
         orderedStaff.push(['','','','','','','', ''])
     }
 
-    console.log("staffarr: ", orderedStaff)
 
     for (var i = 0; i < staffArrayValue[0].length; i++) {
         staffArrayValue[0][i].ShiftsAdded = 0;
@@ -375,25 +347,16 @@ export default function ViewCalendar() {
         
         /* ----------------------ADD ITEMS INTO CALENDAR---------------------- */
 
-        // console.log(datesArray)
-        // console.log(datesArray);
         while (currDate < datesArray.length) {
             newData.push({duty: "Duty", time: "Time", monday: datesArray[currDate], tuesday: datesArray[currDate+1], wednesday: datesArray[currDate+2], thursday: datesArray[currDate+3], friday: datesArray[currDate+4]});
             for (var i=0; i<duties.length; i++){
-                console.log(">:(((((" + orderedStaff[0].length + ' and i=' + i + ' and currday=' + currDate)
                 if(i===2) {
                     newData.push({duty: duties[i], time: startTimes[i] + "–" + endTimes[i], monday: orderedGym[currDate], tuesday: orderedGym[currDate+1], wednesday: orderedGym[currDate+2], thursday: orderedGym[currDate+3], friday: orderedGym[currDate+4]});
                 }
                 else if (i<2) {
-                    console.log("?????" +orderedStaff[currDate][i])
-                    console.log("?????1" +orderedStaff[currDate+1][i])
-                    console.log("?????2" +orderedStaff[currDate+2][i])
-                    console.log("?????3" +orderedStaff[currDate+3][i])
-                    console.log("?????4" +orderedStaff[currDate+4][i])
                     newData.push({duty: duties[i], time: startTimes[i] + "–" + endTimes[i], monday: orderedStaff[currDate][i], tuesday: orderedStaff[currDate+1][i], wednesday: orderedStaff[currDate+2][i], thursday: orderedStaff[currDate+3][i], friday: orderedStaff[currDate+4][i]});
                 }
                 else {
-                    console.log("!!!!!!!!")
                     newData.push({duty: duties[i], time: startTimes[i] + "–" + endTimes[i], monday: orderedStaff[currDate][i-1], tuesday: orderedStaff[currDate+1][i-1], wednesday: orderedStaff[currDate+2][i-1], thursday: orderedStaff[currDate+3][i-1], friday: orderedStaff[currDate+4][i-1]});
                 }
             }
@@ -458,7 +421,6 @@ export default function ViewCalendar() {
         const focusedCell =  evt.api.getFocusedCell();
         const row = evt.api.getDisplayedRowAtIndex(focusedCell.rowIndex)
         const cellValue = evt.api.getValue(focusedCell.column, row)
-        console.log("xxx cell was value", cellValue);
     };
 
     return (
