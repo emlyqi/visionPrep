@@ -34,6 +34,7 @@ function DoRButts () {
 
     const handleDOR = (event, newDOR) => {
         setDaysOfRotation(newDOR);
+        console.log(daysOfRotationValue)
     };
 
     // const buttonClick = () => {
@@ -63,12 +64,12 @@ function DoRButts () {
             aria-label="Days of Rotation"
         >
             <MuiToggleButton 
-                value="2" 
+                value={2} 
                 aria-label="2 Days of Rotation"
             >
                 2
             </MuiToggleButton>
-            <MuiToggleButton value="4" aria-label="4 Days of Rotation">
+            <MuiToggleButton value={4} aria-label="4 Days of Rotation">
                 4
             </MuiToggleButton>
 

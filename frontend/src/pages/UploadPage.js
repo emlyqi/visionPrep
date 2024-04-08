@@ -10,11 +10,11 @@ import SubmitSelectionsPage from "../components/SubmitSelectionsPage";
 import ViewCalendar from "../components/ViewCalendar";
 
 function UploadPage() {
-    const [daysOfRotation, setDaysOfRotation] = useState("2");
+    const [daysOfRotation, setDaysOfRotation] = useState(2);
     const [startDay, setStartDay] = useState(1);
     const [startDate, setStartDate] = useState("2024/4/17");
     const [endDate, setEndDate] = useState("2024/4/17");
-    const [calendarMonth, setcalendarMonth] = useState(1);
+    // const [calendarMonth, setcalendarMonth] = useState(1);
     const [staffArray, setStaffArray] = useState([{Staff: "C. Edwards", Load: "1", ShiftsLeft: "40", Day1: "x", Day2: "x", Day3: "", Day4: "x", Gym: ""}]);
 
     const [active, setActive] = useState("uploadCSVPage");
@@ -99,7 +99,7 @@ function UploadPage() {
                     </Button>
                     
                 {/* </Grid> */}
-                <TestComponent />
+                {/* <TestComponent /> */}
             </Grid>
         </UploadContext.Provider>
     );
