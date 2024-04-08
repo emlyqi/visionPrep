@@ -1,4 +1,4 @@
-import React, { useState, useContext, useMemo } from "react";
+import React, { useState, useContext, useMemo, useRef } from "react";
 import Calendar from 'react-calendar';
 import { Box, Grid, Button, IconButton } from "@mui/material";
 import UploadContext from "../contexts/UploadContext";
@@ -8,10 +8,14 @@ import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import "../App.css"
 import RefreshIcon from '@mui/icons-material/Refresh';
+import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
+import { gridApi } from "ag-grid-community";
+
 // import { ModuleRegistry } from "@ag-grid-community/core";
 // ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
 export default function ViewCalendar() {
+    const gridRef = useRef();
 
     const { daysOfRotationValue, startDayValue, startDateValue, endDateValue, staffArrayValue } = useContext(UploadContext);
     const [, setDaysOfRotation] = daysOfRotationValue;
@@ -94,7 +98,7 @@ export default function ViewCalendar() {
         commenceDate.setDate(commenceDate.getDate()+1);
     }
 
-    numDays = (datesArray.length)-diffEndDates-diffStartDates;
+    numDays = (datesArray.length)-diffEndDates-diffStartDates+1;
 
     const loadCal = () => {
 
@@ -270,19 +274,28 @@ export default function ViewCalendar() {
                     for (var j = 0; j < staffArrayCopyCopy.length; j++) {
                         var tempIndex2 = staffArrayValue[0].findIndex(item => item.Staff === staffArrayCopyCopy[j]);
                         var varProperty2 = currDay;
+                        // var indexDiff = Math.floor(tempIndex2/(orderedStaff.findLastIndex(arr => arr.includes(staffArrayCopyCopy[j]))));
+                        // var indexDiff = orderedStaff.findLastIndex(arr => arr.includes(staffArrayCopyCopy[j]));
+                        var staffPerson = staffArrayCopyCopy[j];
+                        var indexOfLast = orderedStaff.findLastIndex(arr => arr.includes(staffPerson));
+                        var indexDiff2 = Math.floor((i+diffStartDates)/5);
+                        var indexDiff3 = Math.floor((indexOfLast+diffStartDates)/5);
                         if (orderedStaff[i].includes(staffArrayCopyCopy[j]) == false && staffArrayValue[0][tempIndex2].ShiftsAdded < staffArrayValue[0][tempIndex2].ShiftsLeft) {
-                            if (staffArrayValue[0][tempIndex2][varProperty2] == "x") {
-                                if (placedStaff.includes(staffArrayCopy[j]) == false) {
-                                    placedStaff.push(staffArrayCopyCopy[j]);
+                            //indexOfLast === -1
+                            if ((indexDiff2-indexDiff3)>1 || indexOfLast === -1) {
+                                if (staffArrayValue[0][tempIndex2][varProperty2] == "x") {
+                                    if (placedStaff.includes(staffArrayCopy[j]) == false) {
+                                        placedStaff.push(staffArrayCopyCopy[j]);
+                                    }
+                                    staffArrayValue[0][tempIndex2].ShiftsAdded++;
+                                    orderedStaff[i][k] = staffArrayCopyCopy[j];
+                                    placedStaffTrue = true;
+                                    placedStaffTrue2 = true;
+                                    if (i === numDays-1 && k === duties.length-1-2) {
+                                        filledStaff = true;
+                                    }
+                                    break;
                                 }
-                                staffArrayValue[0][tempIndex2].ShiftsAdded++;
-                                orderedStaff[i][k] = staffArrayCopyCopy[j];
-                                placedStaffTrue = true;
-                                placedStaffTrue2 = true;
-                                if (i === numDays-1 && k === duties.length-1-2) {
-                                    filledStaff = true;
-                                }
-                                break;
                             }
                         }
                     }
@@ -423,6 +436,10 @@ export default function ViewCalendar() {
         const cellValue = evt.api.getValue(focusedCell.column, row)
     };
 
+    const exportButton = () => {
+        gridRef.current.api.exportDataAsCsv();
+    };
+
     return (
         <Box
           width='100%'
@@ -450,9 +467,16 @@ export default function ViewCalendar() {
                     aria-label="load calendar"
                     style={{color:"#5790FF"}}
                     onClick = {loadCal}
-            >
-                <RefreshIcon />
-            </IconButton>
+                >
+                    <RefreshIcon />
+                </IconButton>
+                <IconButton
+                    aria-label="download as CSV"
+                    style={{color:"#5790FF"}}
+                    onClick={exportButton}
+                >
+                 <FileDownloadOutlinedIcon />   
+                </IconButton>
 
             </Box>
             
@@ -472,7 +496,7 @@ export default function ViewCalendar() {
 
             >
                 <div
-                    style={{height: "100%", width: "48.8rem", margin: 0, backgroundColor: "#ffffff", textAlign: "center"}}
+                    style={{height: "100%", width: "50rem", margin: 0, backgroundColor: "#ffffff", textAlign: "center", borderRadius: "1rem"}}
                     // position="absolute"
                 >
                     <AgGridReact
@@ -482,6 +506,9 @@ export default function ViewCalendar() {
                         defaultColDef={defaultColDef}
                         rowClass={rowClass}
                         getRowClass={getRowStyle}
+                        // suppressExcelExport = 'true'
+                        ref={gridRef}
+                        //onCellClicked
                     />
                 </div>
                 <Box

@@ -17,6 +17,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Stack from '@mui/material/Stack';
 import csvInstructions from '../assets/csvInstructions.png';
+import csvInstr from '../assets/csvInstr.png';
 import Papa from "papaparse";
 import { Grid } from '@mui/material';
 import UploadContext from "../contexts/UploadContext";
@@ -96,95 +97,108 @@ function UploadCSV() {
 
         style={{top: '0', bottom: '0', left: '0', right: '0', position: 'absolute', width: 'auto', height: 'auto', marginTop: '4rem', marginBottom: '4rem', marginRight: '4rem', marginLeft: '4rem'}}
       >
-        <div style={{ margin: 'auto'}}>
+        <Grid 
+          item 
+          container
+          borderRadius='0.9375rem' 
+          alignContent='center' 
+          alignItems='flex-start'
+          backgroundColor='#212121'
+          justifyContent='space-evenly'
+
+          style={{top: '0', bottom: '0', left: '0', right: '0', position: 'absolute', width: 'auto', height: 'auto', marginTop: '4rem', marginBottom: '4rem', marginRight: '4rem', marginLeft: '4rem', padding: '0rem'}}
+        >
+        {/* <div style={{ marginTop: '2rem', marginBottom: '2rem', marginRight: '4rem', marginLeft: '4rem', width: 'auto', height: 'auto', position: 'absolute'}}> */}
           <div style={{ textAlign:"center"}}>
-          <label htmlFor="csvFileInput">
-            <input style={{ display: "none" }}
-              type = "file"
-              accept = ".csv"
-              id = "csvFileInput"
-              onChange = {handleOnChange}
-            />
-            <Button
-              variant = "contained"
-              startIcon = {<FileUploadIcon />}
-              component = "span"
-              sx={{
-                position: 'absolute',
-                right: '5rem',
-                bottom: '5rem',
-                fontFamily: 'sans-serif',
-                color: '#010101',
-                fontSize: '1.875rem',
-                borderRadius: '100px',
-                paddingX: '3.3125rem',
-                paddingY: '0.01rem',
-                backgroundColor: '#5790FF',
-                textTransform: 'none',
-                svg: {width: "5rem", height: "5rem", marginRight: "0rem"}
+            <label htmlFor="csvFileInput">
+              <input style={{ display: "none" }}
+                type = "file"
+                accept = ".csv"
+                id = "csvFileInput"
+                onChange = {handleOnChange}
+              />
+              <Button
+                variant = "contained"
+                startIcon = {<FileUploadIcon />}
+                component = "span"
+                sx={{
+                  position: 'absolute',
+                  left: '36%',
+                  top: '3.3rem',
+                  fontFamily: 'sans-serif',
+                  color: '#010101',
+                  fontSize: '1.875rem',
+                  borderRadius: '100px',
+                  paddingX: '3.3125rem',
+                  paddingY: '0.01rem',
+                  backgroundColor: '#5790FF',
+                  textTransform: 'none',
+                  height: "4.5rem",
+                  svg: {width: "3rem", height: "3rem", marginLeft: "-0.5rem", marginRight: "0.5rem"}
+                }}
+              >
+                Upload CSV
+              </Button>
+            </label>
+              {/* <form style={{ }}>
+                <input
+                  style={{ position:"absolute",  left:"50%", top:"11.25rem", transform:"translate(-50%, -50%)", display:"block"}}
+                  type={"file"}
+                  id={"csvFileInput"}
+                  accept={".csv"}
+                  onChange={handleOnChange}
+                /> */}
+
+            {/* <Button
+              sx={{ 
+                position:"absolute",
+                left:"50%",
+                top:"11.25rem",
+                transform:"translate(-50%,50%)",
+                display:"block",
+                backgroundColor:"#212121",
+                color:"#80828A",
+                padding:"0",
+                ":hover": {
+                  textDecoration:"underline"
+                },
+              }}
+              onClick={(e) => {
+                handleOnSubmit(e);
               }}
             >
-              Upload CSV
-            </Button>
-          </label>;
-            {/* <form style={{ }}>
-              <input
-                style={{ position:"absolute",  left:"50%", top:"11.25rem", transform:"translate(-50%, -50%)", display:"block"}}
-                type={"file"}
-                id={"csvFileInput"}
-                accept={".csv"}
-                onChange={handleOnChange}
-              /> */}
+              Import CSV
+            </Button> */}
+          {/* </form> */}
 
-          {/* <Button
-            sx={{ 
-              position:"absolute",
-              left:"50%",
-              top:"11.25rem",
-              transform:"translate(-50%,50%)",
-              display:"block",
-              backgroundColor:"#212121",
-              color:"#80828A",
-              padding:"0",
-              ":hover": {
-                textDecoration:"underline"
-              },
-            }}
-            onClick={(e) => {
-              handleOnSubmit(e);
-            }}
-          >
-            Import CSV
-          </Button> */}
-        {/* </form> */}
+              <br />
 
-            <br />
-
-            {/* <table>
-              <thead>
-                <tr key={"header"}>
-                  {headerKeys.map((key) => (
-                    <th>{key}</th>
-                  ))}
-                </tr>
-              </thead>
-
-              <tbody>
-                {array.map((item) => (
-                  <tr key={item.id}>
-                    {Object.values(item).map((val) => (
-                      <td>{val}</td>
+              {/* <table>
+                <thead>
+                  <tr key={"header"}>
+                    {headerKeys.map((key) => (
+                      <th>{key}</th>
                     ))}
                   </tr>
-                ))}
-              </tbody>
-            </table> */}
+                </thead>
 
-          </div>
+                <tbody>
+                  {array.map((item) => (
+                    <tr key={item.id}>
+                      {Object.values(item).map((val) => (
+                        <td>{val}</td>
+                      ))}
+                    </tr>
+                  ))}
+                </tbody>
+              </table> */}
 
-          <img src={csvInstructions} alt="CSV Format Instructions" />
-          
-        </div>
+            </div>
+
+            {/* <img src={csvInstructions} alt="CSV Format Instructions" /> */}
+            <img src={csvInstr} alt="CSV Format Instructions" height="500rem" width="900rem"/>
+        {/* </div> */}
+        </Grid>
       </Grid>
     </Grid>
   );
