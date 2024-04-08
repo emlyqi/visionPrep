@@ -38,6 +38,7 @@ export default function ViewCalendar() {
     var placedGym = [];
     var placedGymTrue = false;
     var placedGymTrue2 = false;
+    var filledGym = false;
 
     shuffle(canGym); 
     for (var i = 0; i < numDays; i++) {
@@ -53,6 +54,9 @@ export default function ViewCalendar() {
                     staffArrayValue[0][tempIndex].ShiftsAdded++;
                     orderedGym.push(canGym[j]);
                     placedGymTrue = true;
+                    if (orderedGym.length == numDays) {
+                        filledGym = true;
+                    }
                     break;
                 }
             }
@@ -75,6 +79,9 @@ export default function ViewCalendar() {
                     orderedGym.push(canGymCopy[j]);
                     placedGymTrue = true;
                     placedGymTrue2 = true;
+                    if (orderedGym.length == numDays) {
+                        filledGym = true;
+                    }
                     break;
                 }
             }
@@ -85,6 +92,9 @@ export default function ViewCalendar() {
                 dayNum = 1;
                 break;
             }
+        } else if (filledGym == true) {
+            dayNum = 1; 
+            break;
         }
 
         if (placedGymTrue == false) {
@@ -119,13 +129,14 @@ export default function ViewCalendar() {
     var placedStaff = [];
     var placedStaffTrue = false;
     var placedStaffTrue2 = false;
+    var filledStaff = false;
 
     shuffle(staffArrayCopy); 
     for (var i = 0; i < numDays; i++) {
         var currDay = "Day" + dayNum;
         placedStaffTrue = false;
         for (var k = 0; k < 7; k++) {
-            for (var j = 0; j < staffArrayCopy.length; j++) { 
+            for (var j = 0; j < staffArrayCopy.length; j++) {
                 if ((placedStaff.includes(staffArrayCopy[j]) == false && orderedStaff[i].includes(staffArrayCopy[j] == false)) || (staffArrayCopy.length != 0 && placedStaff.length == staffArrayCopy.length && orderedStaff[i].includes(staffArrayCopy[j] == false))) {
                     var tempIndex = staffArrayValue[0].findIndex(item => item.Staff === staffArrayCopy[j]);
                     var varProperty = currDay;
@@ -135,6 +146,9 @@ export default function ViewCalendar() {
                             staffArrayValue[0][tempIndex].ShiftsAdded++;
                             orderedStaff[i][k] = staffArrayCopy[j];
                             placedStaffTrue = true;
+                            if (i == numDays-1 && k == 7-1) {
+                                filledStaff = true;
+                            }
                             break;
                         }
                     }
@@ -161,6 +175,9 @@ export default function ViewCalendar() {
                             orderedStaff[i][k] = staffArrayCopyCopy[j];
                             placedStaffTrue = true;
                             placedStaffTrue2 = true;
+                            if (i == numDays-1 && k == 7-1) {
+                                filledStaff = true;
+                            }
                             break;
                         }
                     }
@@ -171,8 +188,13 @@ export default function ViewCalendar() {
         if (staffArrayCopy.length != 0 && placedStaff.length == staffArrayCopy.length) {
             if (currDay == "Day4") {
                 var stoppedAt = i;
+                dayNum = 1;
                 break;
             }
+        } else if (filledStaff == true) {
+            var stoppedAt = i;
+            dayNum = 1;
+            break;
         }
 
         // if (placedStaffTrue == false) {
@@ -186,7 +208,9 @@ export default function ViewCalendar() {
         }
     }
 
-    orderedStaff.splice(stoppedAt+1);
+    if (filledStaff == false || i != numDays-1) {
+        orderedStaff.splice(stoppedAt+1);
+    }
 
     var numStaffRepetitions = Math.floor(numDays/orderedStaff.length);
 
