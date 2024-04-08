@@ -153,10 +153,6 @@ export default function ViewCalendar() {
 
         /* ----------------------GYM STAFF PLACEMENT---------------------- */
 
-        for (var z=0; z<diffStartDates; z++) {
-            orderedGym.push("");
-        }
-
         shuffle(canGym); 
         for (var i = 0; i < numDays; i++) {
             var currDay = "Day" + dayNum;
@@ -240,13 +236,17 @@ export default function ViewCalendar() {
         }
     
         console.log("gym arrays", canGym, placedGym, orderedGym);
+
+        for (var z=0; z<diffStartDates; z++) {
+            orderedGym.unshift("");
+        }
     
         //non-gym teacher placement
-        var orderedStaff = Array.from({length: numDays}, () => Array(7).fill(""));
-        var placedStaff = [];
-        var placedStaffTrue = false;
-        var placedStaffTrue2 = false;
-        var filledStaff = false;
+        // var orderedStaff = Array.from({length: numDays}, () => Array(7).fill(""));
+        // var placedStaff = [];
+        // var placedStaffTrue = false;
+        // var placedStaffTrue2 = false;
+        // var filledStaff = false;
 
         /* ----------------------OTHER STAFF PLACEMENT---------------------- */
 
@@ -273,7 +273,7 @@ export default function ViewCalendar() {
                                 orderedStaff[i][k] = staffArrayCopy[j];
                                 placedStaffTrue = true;
                                 // console.log("nop: " + duties.length)
-                                if (i == numDays-1 && k == duties.length-1-1) {
+                                if (i == numDays-1 && k == duties.length-1-2) {
                                     filledStaff = true;
                                 }
                                 break;
@@ -305,7 +305,7 @@ export default function ViewCalendar() {
                                 placedStaffTrue = true;
                                 placedStaffTrue2 = true;
                                 // console.log("yep: " + duties.length)
-                                if (i === numDays-1 && k === duties.length-1-1) {
+                                if (i === numDays-1 && k === duties.length-1-2) {
                                     filledStaff = true;
                                 }
                                 break;
