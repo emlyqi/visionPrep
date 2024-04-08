@@ -7,20 +7,23 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { useNavigate } from "react-router-dom";
 import UploadContext from "../contexts/UploadContext";
 import SubmitSelectionsPage from "../components/SubmitSelectionsPage";
-import TestComponent from "../components/TestComponent";
+import ViewCalendar from "../components/ViewCalendar";
 
 function UploadPage() {
-    const [daysOfRotation, setDaysOfRotation] = useState("2");
-    const [startDay, setStartDay] = useState("1");
-    const [startDate, setStartDate] = useState("01/01/2021");
-    const [endDate, setEndDate] = useState("12/31/2021");
-    const [staffArray, setStaffArray] = useState([{Staff: "C. Edwards", Load: "1", ShiftsLeft: "40", ShiftsAdded: "0", Day1: "x", Day2: "x", Day3: "", Day4: "x", Gym: ""}]);
+    const [daysOfRotation, setDaysOfRotation] = useState(2);
+    const [startDay, setStartDay] = useState(1);
+    const [startDate, setStartDate] = useState("2024/4/17");
+    const [endDate, setEndDate] = useState("2024/4/17");
+    // const [calendarMonth, setcalendarMonth] = useState(1);
+    const [staffArray, setStaffArray] = useState([{Staff: "C. Edwards", Load: "1", ShiftsLeft: "40", Day1: "x", Day2: "x", Day3: "", Day4: "x", Gym: ""}]);
 
     const [active, setActive] = useState("uploadCSVPage");
     const [rightPos, setRightPos] = useState("7.3125rem");
     const [bottomPos, setBottomPos] = useState("7rem");
     const [word, setWord] = useState("Next");
     const [colour, setColour] = useState("#5790FF");
+    const [calendarTrue, setCalendarTrue] = useState(false);
+    // const [displaying, setDisplaying] = useState("block");
 
     let navigate = useNavigate();
 
@@ -33,10 +36,14 @@ function UploadPage() {
             setBottomPos("23.375rem");
             setWord("Submit");
             setColour("#57DB64");
+        } else if (active === "submitPage") {
+        setActive("calendarPage");
+        setRightPos("36.625rem");
+        setBottomPos("23.375rem");
+        setWord("");
+        setColour("#57DB64");
+        setCalendarTrue(true);
         } 
-        // else if (active === "submitPage") {
-
-        // }
     }
 
     return (  
@@ -66,6 +73,7 @@ function UploadPage() {
                         {active === "uploadCSVPage" && <React.StrictMode><UploadCSV /></React.StrictMode>}
                         {active === "selectDayPage" && <SelectDays/>}
                         {active === "submitPage" && <SubmitSelectionsPage/>}
+                        {active === "calendarPage" && <ViewCalendar/>}
                         {/* {active === "viewCalendarPage"} */}
                     </Grid>
                     <Button 
@@ -84,13 +92,14 @@ function UploadPage() {
                             paddingY: '0.01rem',
                             backgroundColor: colour,
                             textTransform: 'none',
-                            svg: {width: "5rem", height: "5rem", marginRight: "-2rem"}
+                            svg: {width: "5rem", height: "5rem", marginRight: "-2rem"},
+                            display: calendarTrue? 'none':null
                     }}>
                         {word}
                     </Button>
                     
                 {/* </Grid> */}
-                <TestComponent />
+                {/* <TestComponent /> */}
             </Grid>
         </UploadContext.Provider>
     );
