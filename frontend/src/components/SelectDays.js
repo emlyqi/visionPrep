@@ -8,7 +8,7 @@ import UploadContext from '../contexts/UploadContext';
 function SelectDays () {
   const {startDayValue} = useContext(UploadContext);
   const [, setStartDay] = startDayValue;
-  const [startDayz, setStartDayz] = useState('');
+  const [startDayz, setStartDayz] = useState(1);
 
   const handleChange = (event) => {
     setStartDayz(event.target.value); //the value is an integer between 1-4 @ startDayValue[0]
@@ -141,9 +141,6 @@ function SelectDays () {
                         '.MuiOutlinedInput-notchedOutline': {border:0}
                       }}
                     >
-                      <MenuItem value="">
-                        <em>None</em>
-                      </MenuItem>
                       <MenuItem value={1}>1</MenuItem>
                       <MenuItem value={2}>2</MenuItem>
                       <MenuItem value={3}>3</MenuItem>
