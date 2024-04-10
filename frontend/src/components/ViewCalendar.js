@@ -133,6 +133,10 @@ export default function ViewCalendar() {
             }
         }
 
+        for (var i = 0; i < staffArrayValue[0].length; i++) {
+            staffArrayValue[0][i].ShiftsAdded = 0;
+        }
+
         /* ----------------------GYM STAFF PLACEMENT---------------------- */
 
         shuffle(canGym); 
@@ -184,11 +188,9 @@ export default function ViewCalendar() {
     
             if (canGym.length != 0 && placedGym.length == canGym.length) {
                 if (currDay == "Day" + tempDOR.toString()) {
-                    dayNum = 1;
                     break;
                 }
             } else if (filledGym == true) {
-                dayNum = 1; 
                 break;
             }
     
@@ -236,126 +238,172 @@ export default function ViewCalendar() {
         // var placedStaffTrue2 = false;
         // var filledStaff = false;
 
-    shuffle(staffArrayCopy); 
-    for (var i = 0; i < numDays; i++) {
-        var currDay = "Day" + dayNum;
-        placedStaffTrue = false;
-        for (var k = 0; k < 9-1; k++) {
-            if (k!=duties.length-2) {
-                for (var j = 0; j < staffArrayCopy.length; j++) {
-                    if ((placedStaff.includes(staffArrayCopy[j]) == false && orderedStaff[i].includes(staffArrayCopy[j] == false)) || (staffArrayCopy.length != 0 && placedStaff.length == staffArrayCopy.length && orderedStaff[i].includes(staffArrayCopy[j] == false))) {
-                        var tempIndex = staffArrayValue[0].findIndex(item => item.Staff === staffArrayCopy[j]);
-                        var varProperty = currDay;
-                        if (staffArrayValue[0][tempIndex].ShiftsAdded < staffArrayValue[0][tempIndex].ShiftsLeft) {
-                            if (staffArrayValue[0][tempIndex][varProperty] == "x") {
-                                placedStaff.push(staffArrayCopy[j]);
-                                staffArrayValue[0][tempIndex].ShiftsAdded++;
-                                orderedStaff[i][k] = staffArrayCopy[j];
-                                placedStaffTrue = true;
-                                if (i == numDays-1 && k == duties.length-1-2) {
-                                    filledStaff = true;
-                                }
-                                break;
-                            }
-                        }
-                    }
-                } 
-            }
-        }
+        dayNum = startDayValue[0];
+        var allPlaced = -1;
 
-        if (placedStaffTrue == false) {
-            // if no one can supervise on that day, use someone that has already been placed for supervision 
-            // but shuffle the list order so they aren't used as backup every time
-            var staffArrayCopyCopy = staffArrayCopy;
-            shuffle(staffArrayCopyCopy);
-            placedStaffTrue2 = false;
+        shuffle(staffArrayCopy); 
+        for (var i = 0; i < numDays; i++) {
+            var currDay = "Day" + dayNum;
+            placedStaffTrue = false;
             for (var k = 0; k < duties.length-1; k++) {
-                if (k!==9-2) {
-                    for (var j = 0; j < staffArrayCopyCopy.length; j++) {
-                        var tempIndex2 = staffArrayValue[0].findIndex(item => item.Staff === staffArrayCopyCopy[j]);
-                        var varProperty2 = currDay;
-                        // var indexDiff = Math.floor(tempIndex2/(orderedStaff.findLastIndex(arr => arr.includes(staffArrayCopyCopy[j]))));
-                        // var indexDiff = orderedStaff.findLastIndex(arr => arr.includes(staffArrayCopyCopy[j]));
-                        var staffPerson = staffArrayCopyCopy[j];
-                        var indexOfLast = orderedStaff.findLastIndex(arr => arr.includes(staffPerson));
-                        var indexDiff2 = Math.floor((i+diffStartDates)/5);
-                        var indexDiff3 = Math.floor((indexOfLast+diffStartDates)/5);
-                        if (orderedStaff[i].includes(staffArrayCopyCopy[j]) == false && staffArrayValue[0][tempIndex2].ShiftsAdded < staffArrayValue[0][tempIndex2].ShiftsLeft) {
-                            //indexOfLast === -1
-                            if ((indexDiff2-indexDiff3)>1 || indexOfLast === -1) {
-                                if (staffArrayValue[0][tempIndex2][varProperty2] == "x") {
-                                    if (placedStaff.includes(staffArrayCopy[j]) == false) {
-                                        placedStaff.push(staffArrayCopyCopy[j]);
-                                    }
-                                    staffArrayValue[0][tempIndex2].ShiftsAdded++;
-                                    orderedStaff[i][k] = staffArrayCopyCopy[j];
+                if (k!=duties.length-2) {
+                    for (var j = 0; j < staffArrayCopy.length; j++) {
+                        if ((placedStaff.includes(staffArrayCopy[j]) == false && orderedStaff[i].includes(staffArrayCopy[j] == false)) || (staffArrayCopy.length != 0 && placedStaff.length == staffArrayCopy.length && orderedStaff[i].includes(staffArrayCopy[j] == false))) {
+                            var tempIndex = staffArrayValue[0].findIndex(item => item.Staff === staffArrayCopy[j]);
+                            var varProperty = currDay;
+                            if (staffArrayValue[0][tempIndex].ShiftsAdded < staffArrayValue[0][tempIndex].ShiftsLeft) {
+                                if (staffArrayValue[0][tempIndex][varProperty] == "x") {
+                                    placedStaff.push(staffArrayCopy[j]);
+                                    staffArrayValue[0][tempIndex].ShiftsAdded++;
+                                    orderedStaff[i][k] = staffArrayCopy[j];
                                     placedStaffTrue = true;
-                                    placedStaffTrue2 = true;
-                                    if (i === numDays-1 && k === duties.length-1-2) {
+                                    if (i == numDays-1 && k == duties.length-1-2) {
                                         filledStaff = true;
                                     }
                                     break;
                                 }
                             }
                         }
+                    } 
+                }
+            }
+
+            if (placedStaffTrue == false) {
+                // if no one can supervise on that day, use someone that has already been placed for supervision 
+                // but shuffle the list order so they aren't used as backup every time
+                var staffArrayCopyCopy = staffArrayCopy;
+                shuffle(staffArrayCopyCopy);
+                placedStaffTrue2 = false;
+                for (var k = 0; k < duties.length-1; k++) {
+                    if (k!==duties.length-2) {
+                        for (var j = 0; j < staffArrayCopyCopy.length; j++) {
+                            var tempIndex2 = staffArrayValue[0].findIndex(item => item.Staff === staffArrayCopyCopy[j]);
+                            var varProperty2 = currDay;
+                            // var indexDiff = Math.floor(tempIndex2/(orderedStaff.findLastIndex(arr => arr.includes(staffArrayCopyCopy[j]))));
+                            // var indexDiff = orderedStaff.findLastIndex(arr => arr.includes(staffArrayCopyCopy[j]));
+                            var staffPerson = staffArrayCopyCopy[j];
+                            var indexOfLast = orderedStaff.findLastIndex(arr => arr.includes(staffPerson));
+                            var indexDiff2 = Math.floor((i+diffStartDates)/5);
+                            var indexDiff3 = Math.floor((indexOfLast+diffStartDates)/5);
+                            var differenceDutyDates = i-indexOfLast
+                            if (orderedStaff[i].includes(staffArrayCopyCopy[j]) == false && staffArrayValue[0][tempIndex2].ShiftsAdded < staffArrayValue[0][tempIndex2].ShiftsLeft) {
+                                //indexOfLast === -1
+                                if (indexDiff2-indexDiff3>1 || indexOfLast === -1) {
+                                    if (staffArrayValue[0][tempIndex2][varProperty2] == "x") {
+                                        // console.log("!!!!!!!!!! ", i)
+                                        if (allPlaced===0){
+                                            var multTwenty = 20;
+                                            while (multTwenty<(i-1)) {
+                                                multTwenty += 20;
+                                            }
+                                            allPlaced = 1;
+                                        }
+                                        if (i>=multTwenty-1-(5-diffStartDates)) {
+                                            // console.log("last row!!! ", i)
+                                            var there = false
+                                            for (var p=0; p<(5-diffStartDates); p++) {
+                                                for (var l=0; l<duties.length-1; l++) {
+                                                    if (staffArrayCopy[j] === orderedStaff[p][l]){
+                                                        there = true;
+                                                        break;
+                                                    }
+                                                }
+                                                if (there) {
+                                                    break;
+                                                }
+                                            }
+                                            if (!there) {
+                                                staffArrayValue[0][tempIndex2].ShiftsAdded++;
+                                                orderedStaff[i][k] = staffArrayCopyCopy[j];
+                                                placedStaffTrue = true;
+                                                placedStaffTrue2 = true;
+                                                if (i === numDays-1 && k === duties.length-1-2) {
+                                                    filledStaff = true;
+                                                }
+                                                break;
+                                            }
+                                        } else {
+                                            if (placedStaff.includes(staffArrayCopy[j]) == false) {
+                                                placedStaff.push(staffArrayCopy[j]);
+                                            }
+                                            staffArrayValue[0][tempIndex2].ShiftsAdded++;
+                                            orderedStaff[i][k] = staffArrayCopyCopy[j];
+                                            placedStaffTrue = true;
+                                            placedStaffTrue2 = true;
+                                            if (i === numDays-1 && k === duties.length-1-2) {
+                                                filledStaff = true;
+                                            }
+                                            break;
+                                        }
+                                        
+                                    }
+                                }
+                            }
+                        }
+                        // if (orderedStaff[i][k] == "") {
+                        //     console.log("empty at day: " + currDay, i, k)
+                        // }
                     }
                 }
             }
-        }
 
-        if (staffArrayCopy.length != 0 && placedStaff.length == staffArrayCopy.length) {
-            if (currDay == "Day" + tempDOR.toString()) {
+            if (staffArrayCopy.length != 0 && placedStaff.length == staffArrayCopy.length) {
+                allPlaced = 0;
+                var startDayPrev = startDayValue[0];
+                if (startDayPrev===1) {
+                    startDayPrev = tempDOR;
+                } else {
+                    startDayPrev--;
+                }
+                // console.log("???????i: " + i + ", diffstart: " + diffStartDates + ", (i+5)%5: " + (i+1)%5)
+                if (currDay == "Day" + startDayPrev.toString() && (i+diffStartDates+1)%5==diffStartDates) {
+                    var stoppedAt = i;
+                    break;
+                }
+            } else if (filledStaff == true) {
                 var stoppedAt = i;
-                dayNum = 1;
                 break;
             }
-        } else if (filledStaff == true) {
-            var stoppedAt = i;
-            dayNum = 1;
-            break;
+
+            // if (placedStaffTrue == false) {
+            //     orderedStaff[i].push("");
+            // }
+
+            if (dayNum < tempDOR) {
+                dayNum ++;
+            } else {
+                dayNum = 1;
+            }
         }
 
-        // if (placedStaffTrue == false) {
-        //     orderedStaff[i].push("");
-        // }
+        // console.log("!!!!!!!!!!!!!!!DONE!!!!!!!!!!!")
+        // console.log(orderedStaff, stoppedAt)
 
-        if (dayNum < tempDOR) {
-            dayNum ++;
-        } else {
-            dayNum = 1;
+        if (filledStaff == false || i != numDays-1) {
+            orderedStaff.splice(stoppedAt+1);
         }
-    }
 
-    if (filledStaff == false || i != numDays-1) {
-        orderedStaff.splice(stoppedAt+1);
-    }
+        var numStaffRepetitions = Math.floor(numDays/orderedStaff.length);
 
-    var numStaffRepetitions = Math.floor(numDays/orderedStaff.length);
+        var tempStaffArray = orderedStaff;
+        for (var i = 0; i < numStaffRepetitions-1; i++) {
+            orderedStaff = orderedStaff.concat(tempStaffArray);
+        }
 
-    var tempStaffArray = orderedStaff;
-    for (var i = 0; i < numStaffRepetitions-1; i++) {
-        orderedStaff = orderedStaff.concat(tempStaffArray);
-    }
-
-    var staffStartIndex = 0; 
-    for (var i = orderedStaff.length; i < numDays; i++) {
-        orderedStaff.push(tempStaffArray[staffStartIndex]);
-        staffStartIndex ++;
-    }
+        var staffStartIndex = 0; 
+        for (var i = orderedStaff.length; i < numDays; i++) {
+            orderedStaff.push(tempStaffArray[staffStartIndex]);
+            staffStartIndex ++;
+        }
 
 
-    for (var h=0; h<diffStartDates; h++) {
-        orderedStaff.unshift(['','','','','','','', ''])
-    }
+        for (var h=0; h<diffStartDates; h++) {
+            orderedStaff.unshift(['','','','','','','', ''])
+        }
 
-    for (var g=0; g<diffEndDates; g++) {
-        orderedStaff.push(['','','','','','','', ''])
-    }
-
-
-    for (var i = 0; i < staffArrayValue[0].length; i++) {
-        staffArrayValue[0][i].ShiftsAdded = 0;
-    }
+        for (var g=0; g<diffEndDates; g++) {
+            orderedStaff.push(['','','','','','','', ''])
+        }
 
         
         /* ----------------------ADD ITEMS INTO CALENDAR---------------------- */
