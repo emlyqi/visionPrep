@@ -16,8 +16,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Stack from '@mui/material/Stack';
-import csvInstructions from '../assets/csvInstructions.png';
-import csvInstr from '../assets/csvInstr.png';
+import csvInstr from '../assets/csvInstructions.png';
 import Papa from "papaparse";
 import { Grid } from '@mui/material';
 import UploadContext from "../contexts/UploadContext";
@@ -196,7 +195,12 @@ function UploadCSV() {
             </div>
 
             {/* <img src={csvInstructions} alt="CSV Format Instructions" /> */}
-            <img src={csvInstr} alt="CSV Format Instructions" height="500rem" width="900rem"/>
+            <img 
+              src={csvInstr} 
+              alt="CSV Format Instructions" 
+              width="80%"
+              height="auto"
+              />
         {/* </div> */}
         </Grid>
       </Grid>
