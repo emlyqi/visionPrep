@@ -1,19 +1,10 @@
-import { useState, useEffect } from 'react';
+import { initializeApp } from 'firebase/app';
+import { getAnalytics } from "firebase/analytics";
+import { getAuth, signInWithRedirect, getRedirectResult, GoogleAuthProvider } from "firebase/auth";
+
 
 function App() {
-  const [data, setData] = useState([{}])
-
-  useEffect (() => {
-    fetch("/data1").then(
-      res => res.json()
-    ).then(
-      data => {
-        setData(data)
-        console.log(data)
-      }
-    )
-  }, [])
-
+  
   return (
     <div/>
     // <div className="App">

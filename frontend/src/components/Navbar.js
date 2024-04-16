@@ -113,7 +113,7 @@ function Navbar(props) {
                 
                 <List>
                     <ListItem disablePadding>
-                        <ListItemButton component={Link} to="upload" style={{borderRadius: '2.375rem', margin:'1.94rem', width: '12.875rem', height: '4.3125rem' }} 
+                        <ListItemButton component={Link} to="/login" style={{borderRadius: '2.375rem', margin:'1.94rem', width: '12.875rem', height: '4.3125rem' }} 
                             sx={{
                                 backgroundColor: '#5790FF',                                
                                 transition: '.4s',
