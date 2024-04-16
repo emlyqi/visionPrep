@@ -16,7 +16,9 @@ function UploadPage() {
     const [endDate, setEndDate] = useState("2024/4/17");
     // const [calendarMonth, setcalendarMonth] = useState(1);
     const [staffArray, setStaffArray] = useState([{Staff: "C. Edwards", Load: "1", ShiftsLeft: "40", Day1: "x", Day2: "x", Day3: "", Day4: "x", Gym: ""}]);
-
+    const [cellValue, setCellValue] = useState("Choose A Day");
+    const [dayType, setDayType] = useState("School");
+    
     const [active, setActive] = useState("uploadCSVPage");
     const [rightPos, setRightPos] = useState("7.3125rem");
     const [bottomPos, setBottomPos] = useState("7rem");
@@ -53,7 +55,9 @@ function UploadPage() {
                 startDayValue: [startDay, setStartDay],
                 startDateValue: [startDate, setStartDate],
                 endDateValue: [endDate, setEndDate],
-                staffArrayValue: [staffArray, setStaffArray]
+                staffArrayValue: [staffArray, setStaffArray],
+                cellValueValue: [cellValue, setCellValue],
+                dayTypeValue: [dayType, setDayType]
             }}
         >
 

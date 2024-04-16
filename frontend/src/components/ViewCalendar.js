@@ -10,6 +10,7 @@ import "../App.css"
 import RefreshIcon from '@mui/icons-material/Refresh';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import { gridApi } from "ag-grid-community";
+import DaySideBar from "./DaySideBar";
 
 // import { ModuleRegistry } from "@ag-grid-community/core";
 // ModuleRegistry.registerModules([ClientSideRowModelModule]);
@@ -17,12 +18,14 @@ import { gridApi } from "ag-grid-community";
 export default function ViewCalendar() {
     const gridRef = useRef();
 
-    const { daysOfRotationValue, startDayValue, startDateValue, endDateValue, staffArrayValue } = useContext(UploadContext);
+    const { daysOfRotationValue, startDayValue, startDateValue, endDateValue, staffArrayValue, cellValueValue, dayTypeValue } = useContext(UploadContext);
     const [, setDaysOfRotation] = daysOfRotationValue;
     const [, setStartDay] = startDayValue;
     const [, setStartDate] = startDateValue;
     const [, setEndDate] = endDateValue;
     const [, setStaffArray] = staffArrayValue;
+    const [, setCellValue] = cellValueValue;
+    const [, setDayType] = dayTypeValue;
     // const [, setcalendarMonth] = calendarMonthValue;
     
     const duties = ["Cafeteria 1", "Cafeteria 2", "Gym/Weight Room", "Bleachers", "Library", "Foyer", "Rover 1", "Rover 2", "Guidance"];
@@ -49,6 +52,8 @@ export default function ViewCalendar() {
     const endDayWeekNum = endingDate.getDay();
     var tempStartingDay = startDayValue[0];
     var tempDOR = daysOfRotationValue[0];
+    var teachDay = false;
+    // var cellValue = "Choose A Day";
 
     for (var i=0; i<staffArrayValue[0].length; i++) {
         allStaffMembers.push(staffArrayValue[0][i].Staff);
@@ -298,21 +303,36 @@ export default function ViewCalendar() {
                                             }
                                             allPlaced = 1;
                                         }
-                                        if (i>=multTwenty-1-(5-diffStartDates)) {
-                                            // console.log("last row!!! ", i)
-                                            var there = false
-                                            for (var p=0; p<(5-diffStartDates); p++) {
-                                                for (var l=0; l<duties.length-1; l++) {
-                                                    if (staffArrayCopy[j] === orderedStaff[p][l]){
-                                                        there = true;
+                                        if (allPlaced===1) {
+                                            if (i>=multTwenty-1-(5-diffStartDates)) {
+                                                // console.log("last row!!! ", i)
+                                                var there = false
+                                                for (var p=0; p<(5-diffStartDates); p++) {
+                                                    for (var l=0; l<duties.length-1; l++) {
+                                                        if (staffArrayCopy[j] === orderedStaff[p][l]){
+                                                            there = true;
+                                                            break;
+                                                        }
+                                                    }
+                                                    if (there) {
                                                         break;
                                                     }
                                                 }
-                                                if (there) {
+                                                if (!there) {
+                                                    staffArrayValue[0][tempIndex2].ShiftsAdded++;
+                                                    orderedStaff[i][k] = staffArrayCopyCopy[j];
+                                                    placedStaffTrue = true;
+                                                    placedStaffTrue2 = true;
+                                                    if (i === numDays-1 && k === duties.length-1-2) {
+                                                        filledStaff = true;
+                                                    }
                                                     break;
                                                 }
                                             }
-                                            if (!there) {
+                                            else {
+                                                if (placedStaff.includes(staffArrayCopy[j]) == false) {
+                                                    placedStaff.push(staffArrayCopy[j]);
+                                                }
                                                 staffArrayValue[0][tempIndex2].ShiftsAdded++;
                                                 orderedStaff[i][k] = staffArrayCopyCopy[j];
                                                 placedStaffTrue = true;
@@ -321,8 +341,9 @@ export default function ViewCalendar() {
                                                     filledStaff = true;
                                                 }
                                                 break;
-                                            }
-                                        } else {
+                                            } 
+                                        }
+                                        else {
                                             if (placedStaff.includes(staffArrayCopy[j]) == false) {
                                                 placedStaff.push(staffArrayCopy[j]);
                                             }
@@ -481,7 +502,19 @@ export default function ViewCalendar() {
     const cellFocused = (evt) => {
         const focusedCell =  evt.api.getFocusedCell();
         const row = evt.api.getDisplayedRowAtIndex(focusedCell.rowIndex)
-        const cellValue = evt.api.getValue(focusedCell.column, row)
+        const gridValue = evt.api.getValue(focusedCell.column, row)
+        setCellValue(gridValue)
+        if (gridValue === "PA Day") {
+            setDayType("PA Day")
+        }
+        else if (gridValue === "Holiday") {
+            setDayType("Holiday")
+        }
+        else {
+            setDayType("School")
+        }
+        console.log(row, setCellValue)
+
     };
 
     const exportButton = () => {
@@ -553,6 +586,7 @@ export default function ViewCalendar() {
                         columnDefs={colDefs}
                         defaultColDef={defaultColDef}
                         rowClass={rowClass}
+                        onCellClicked={cellFocused}
                         getRowClass={getRowStyle}
                         // suppressExcelExport = 'true'
                         ref={gridRef}
@@ -563,10 +597,12 @@ export default function ViewCalendar() {
                     width='31.736%'
                     backgroundColor='#26272B'
                     borderRadius='1rem'
+                    // flexDirection= 'column'
                 >
-                    <p style={{color: "#C1D6FF", fontSize: "2rem", marginLeft: "2.5rem", marginTop:"4.3rem", marginBottom: "0rem", paddingBottom: "0rem"}}>{selectedDay}</p>
-                    <p style={{fontSize: "2rem", marginLeft: "1.2rem", marginTop: "-1rem", paddingTop: "0rem", color: "#80828A"}}>________________________ </p>
-
+                    {/* <p style={{color: "#C1D6FF", fontSize: "2rem", marginLeft: "2.5rem", marginTop:"4.3rem", marginBottom: "0rem", paddingBottom: "0rem"}}>{cellValueValue[0]}</p> */}
+                    {/* <p style={{color: "#C1D6FF", fontSize: "2rem", marginLeft: "2.5rem", marginTop:"4.3rem", marginBottom: "0rem", paddingBottom: "0rem"}}>{selectedDay}</p>
+                    <p style={{fontSize: "2rem", marginLeft: "1.2rem", marginTop: "-1rem", paddingTop: "0rem", color: "#80828A"}}>________________________ </p> */}
+                    <DaySideBar cellValue={cellValueValue[0]} dayTypes={dayTypeValue[0]} />
                 </Box>
             </Box>
         
