@@ -127,6 +127,8 @@ export default function ViewCalendar() {
 
         const newData = [];
 
+        console.log(0);
+
         var orderedStaff = Array.from({length: numDays}, () => Array(8).fill(""));
 
         for (var i = 0; i < staffArrayValue[0].length; i++) {
@@ -144,12 +146,14 @@ export default function ViewCalendar() {
 
         /* ----------------------GYM STAFF PLACEMENT---------------------- */
 
+        console.log(1);
         shuffle(canGym); 
         for (var i = 0; i < numDays; i++) {
             var currDay = "Day" + dayNum;
     
             placedGymTrue = false;
             for (var j = 0; j < canGym.length; j++) { 
+                console.log(2);
                 if ((placedGym.includes(canGym[j]) == false) || (canGym.length != 0 && placedGym.length == canGym.length)) {
                     var tempIndex = staffArrayValue[0].findIndex(item => item.Staff === canGym[j]);
                     var varProperty = currDay;
@@ -167,6 +171,7 @@ export default function ViewCalendar() {
             } 
     
             if (placedGymTrue == false) {
+                console.log(3);
                 // if no one can supervise on that day, use someone that has already been placed for supervision 
                 // but shuffle the list order so they aren't used as backup every time
                 var canGymCopy = canGym;
@@ -191,6 +196,7 @@ export default function ViewCalendar() {
                 }
             }
     
+            console.log(4);
             if (canGym.length != 0 && placedGym.length == canGym.length) {
                 if (currDay == "Day" + tempDOR.toString()) {
                     break;
@@ -211,6 +217,7 @@ export default function ViewCalendar() {
     
         }
     
+        console.log(5);
         var numGymRepetitions = Math.floor(numDays/orderedGym.length);
     
         var tempGymArray = orderedGym;
@@ -243,11 +250,13 @@ export default function ViewCalendar() {
         // var placedStaffTrue2 = false;
         // var filledStaff = false;
 
+        console.log(6);
         dayNum = startDayValue[0];
         var allPlaced = -1;
 
         shuffle(staffArrayCopy); 
         for (var i = 0; i < numDays; i++) {
+            console.log(7);
             var currDay = "Day" + dayNum;
             placedStaffTrue = false;
             for (var k = 0; k < duties.length-1; k++) {
@@ -274,6 +283,7 @@ export default function ViewCalendar() {
             }
 
             if (placedStaffTrue == false) {
+                console.log(8);
                 // if no one can supervise on that day, use someone that has already been placed for supervision 
                 // but shuffle the list order so they aren't used as backup every time
                 var staffArrayCopyCopy = staffArrayCopy;
@@ -304,6 +314,7 @@ export default function ViewCalendar() {
                                             allPlaced = 1;
                                         }
                                         if (allPlaced===1) {
+                                            console.log(9);
                                             if (i>=multTwenty-1-(5-diffStartDates)) {
                                                 // console.log("last row!!! ", i)
                                                 var there = false
@@ -368,6 +379,7 @@ export default function ViewCalendar() {
                 }
             }
 
+            console.log(10);
             if (staffArrayCopy.length != 0 && placedStaff.length == staffArrayCopy.length) {
                 allPlaced = 0;
                 var startDayPrev = startDayValue[0];
@@ -400,6 +412,7 @@ export default function ViewCalendar() {
         // console.log("!!!!!!!!!!!!!!!DONE!!!!!!!!!!!")
         // console.log(orderedStaff, stoppedAt)
 
+        console.log(11);
         if (filledStaff == false || i != numDays-1) {
             orderedStaff.splice(stoppedAt+1);
         }
@@ -418,6 +431,7 @@ export default function ViewCalendar() {
         }
 
 
+        console.log(12);
         for (var h=0; h<diffStartDates; h++) {
             orderedStaff.unshift(['','','','','','','', ''])
         }
@@ -429,6 +443,7 @@ export default function ViewCalendar() {
         
         /* ----------------------ADD ITEMS INTO CALENDAR---------------------- */
 
+        console.log(13);
         while (currDate < datesArray.length) {
             newData.push({duty: "Duty", time: "Time", monday: datesArray[currDate], tuesday: datesArray[currDate+1], wednesday: datesArray[currDate+2], thursday: datesArray[currDate+3], friday: datesArray[currDate+4]});
             for (var i=0; i<duties.length; i++){
