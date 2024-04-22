@@ -16,16 +16,35 @@ function WelcomePage() {
         alignItems='flex-start'
         justifyContent='space-evenly'
 
-        style={{top: '0', bottom: '0', left: '0', right: '0', position: 'absolute', width: 'auto', height: 'auto', marginTop: '4rem', marginBottom: '4rem', marginRight: '4rem', marginLeft: '4rem'}}
+        style={{top: '0', bottom: '0', left: '0', right: '0', position: 'absolute', width: 'auto', height: 'auto', marginTop: '13rem', marginBottom: '2rem', marginRight: '2rem', marginLeft: '2rem'}}
       >
-      <div>Welcome Page</div>
-      <img 
-        src={welcomePic} 
-        alt="emily and jamie make a deal (baby version)" 
-        width="auto"
-        height="80%"
-        margin="auto"
-      />
+        <Box
+        width='40%'
+        height="100%"
+        display='flex'
+        justifyContent='flex-start'
+        alignItems='flex-start'
+        flexDirection='column'
+        >
+          <p style={{color: "#D5EBFF", fontSize: "3rem", marginTop: "3rem", fontWeight: "bold"}}>Welcome to the best scheduling tool you'll ever use. </p>
+          <p style={{color: "#FFFFFF", marginTop: "0rem"}}>Created by Emily Qi and Jamie Xiao 2023–24</p>
+        </Box>
+        <Box
+        width='40%'
+        height="100%"
+        display='flex'
+        justifyContent='flex-start'
+        alignItems='flex-start'
+        >
+          <img 
+            src={welcomePic} 
+            alt="emily and jamie make a deal (baby version)" 
+            width="auto"
+            height="80%"
+            margin="auto"
+            
+          />
+        </Box>
 
     {/* </div> */}
       </Grid>
