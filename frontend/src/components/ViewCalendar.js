@@ -444,13 +444,16 @@ export default function ViewCalendar() {
         if (filledStaff == false || i != numDays-1) {
             orderedStaff.splice(stoppedAt+1);
         }
+        console.log(11.1)
 
         var numStaffRepetitions = Math.floor(numDays/orderedStaff.length);
+        console.log(11.2)
 
         var tempStaffArray = orderedStaff;
         for (var i = 0; i < numStaffRepetitions-1; i++) {
             orderedStaff = orderedStaff.concat(tempStaffArray);
         }
+        console.log(11.3)
 
         var staffStartIndex = 0; 
         for (var i = orderedStaff.length; i < numDays; i++) {
@@ -495,10 +498,10 @@ export default function ViewCalendar() {
             dayOfTemp = (datesArray[j]).substring(datesArray[j].length-1, datesArray[j].length);
             if (dayOfTemp === "1" || dayOfTemp === "2" || dayOfTemp === "3" || dayOfTemp === "4") {
                 datesArray[j] = (datesArray[j]).substring(0, datesArray[j].length-1) + dayTemp.toString();
-                if (dayTemp === tempDOR) {
-                    dayTemp = 1;
-                } else {
+                if (dayTemp < tempDOR) {
                     dayTemp ++;
+                } else {
+                    dayTemp = 1;
                 }
             }
 

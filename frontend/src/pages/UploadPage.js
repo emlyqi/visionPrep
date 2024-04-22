@@ -41,8 +41,8 @@ function UploadPage() {
             setActive("selectDayPage");
         } else if (active === "selectDayPage") {
             setActive("submitPage");
-            setRightPos("36.625rem");
-            setBottomPos("23.375rem");
+            setRightPos("41%");
+            setBottomPos("45%");
             setWord("Submit");
             setColour("#57DB64");
         } else if (active === "submitPage") {
