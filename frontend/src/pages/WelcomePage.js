@@ -16,7 +16,7 @@ function WelcomePage() {
         alignItems='flex-start'
         justifyContent='space-evenly'
 
-        style={{top: '0', bottom: '0', left: '0', right: '0', position: 'absolute', width: 'auto', height: 'auto', marginTop: '13rem', marginBottom: '2rem', marginRight: '2rem', marginLeft: '2rem'}}
+        style={{top: '0', bottom: '0', left: '0', right: '0', position: 'absolute', width: 'auto', height: 'auto', marginTop: '15rem', marginBottom: '2rem', marginRight: '2rem', marginLeft: '2rem'}}
       >
         <Box
         width='40%'
@@ -33,7 +33,7 @@ function WelcomePage() {
         width='40%'
         height="100%"
         display='flex'
-        justifyContent='flex-start'
+        justifyContent='flex-end'
         alignItems='flex-start'
         >
           <img 
