@@ -26,12 +26,15 @@ function UploadCSV() {
   const [file, setFile] = useState();
   const [array, setArray] = useState([]);
 
-  const fileReader = new FileReader();
+  // const fileReader = new FileReader();
 
   const {staffArrayValue} = useContext(UploadContext);
   const [, setStaffArray] = staffArrayValue;
 
+  const [uploadColour, setUploadColour] = useState("#5790FF");
+
   const handleOnChange = (e) => {
+    setUploadColour("#57DB64");
     setFile(e.target.files[0]);
     Papa.parse(e.target.files[0], {
       header: true,
@@ -130,7 +133,7 @@ function UploadCSV() {
                   borderRadius: '100px',
                   paddingX: '3.3125rem',
                   paddingY: '0.01rem',
-                  backgroundColor: '#5790FF',
+                  backgroundColor: uploadColour,
                   textTransform: 'none',
                   height: "4.5rem",
                   svg: {width: "3rem", height: "3rem", marginLeft: "-0.5rem", marginRight: "0.5rem"}
