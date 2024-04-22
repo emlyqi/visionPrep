@@ -122,7 +122,7 @@ function UploadCSV() {
                 component = "span"
                 sx={{
                   position: 'absolute',
-                  left: '36%',
+                  left: '40%',
                   top: '3.3rem',
                   fontFamily: 'sans-serif',
                   color: '#010101',
@@ -198,8 +198,9 @@ function UploadCSV() {
             <img 
               src={csvInstr} 
               alt="CSV Format Instructions" 
-              width="80%"
-              height="auto"
+              style={{
+                width:"70%"
+              }}
               />
         {/* </div> */}
         </Grid>
