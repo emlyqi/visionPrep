@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import dayjs from 'dayjs';
 import { Grid } from "@mui/material"; 
 import UploadCSV from "../components/Upload"
 import SelectDays from "../components/SelectDays";
@@ -10,14 +11,20 @@ import SubmitSelectionsPage from "../components/SubmitSelectionsPage";
 import ViewCalendar from "../components/ViewCalendar";
 
 function UploadPage() {
+
+    const [date, setDate] = React.useState(dayjs());
+    const today = dayjs(date.$d).format('YYYY-MM-DD');
+
     const [daysOfRotation, setDaysOfRotation] = useState(2);
     const [startDay, setStartDay] = useState(1);
-    const [startDate, setStartDate] = useState("2024/4/17");
-    const [endDate, setEndDate] = useState("2024/4/17");
+    const [startDate, setStartDate] = useState(today);
+    const [endDate, setEndDate] = useState(today);
     // const [calendarMonth, setcalendarMonth] = useState(1);
     const [staffArray, setStaffArray] = useState([{Staff: "C. Edwards", Load: "1", ShiftsLeft: "40", Day1: "x", Day2: "x", Day3: "", Day4: "x", Gym: ""}]);
     const [cellValue, setCellValue] = useState("Choose A Day");
     const [dayType, setDayType] = useState("School");
+    const [cellIndex, setCellIndex] = useState(-1);
+    const [cellChangeDay, setCellChangeDay] = useState([{Index: -1, DaySchoolType: "School"}]);
     
     const [active, setActive] = useState("uploadCSVPage");
     const [rightPos, setRightPos] = useState("7.3125rem");
@@ -57,7 +64,9 @@ function UploadPage() {
                 endDateValue: [endDate, setEndDate],
                 staffArrayValue: [staffArray, setStaffArray],
                 cellValueValue: [cellValue, setCellValue],
-                dayTypeValue: [dayType, setDayType]
+                dayTypeValue: [dayType, setDayType],
+                cellIndexValue: [cellIndex, setCellIndex],
+                cellChangeDayValue: [cellChangeDay, setCellChangeDay]
             }}
         >
 

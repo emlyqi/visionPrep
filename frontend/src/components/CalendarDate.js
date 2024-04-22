@@ -13,7 +13,7 @@ function CalendarDate ({startEnd}) {
     const [, setStartDate] = startDateValue;
     const [, setEndDate] = endDateValue;
 
-    const [date, setDate] = React.useState(dayjs('2024-04-17'));
+    const [date, setDate] = React.useState(dayjs());
 
     const changeDate = (newDate) => {
         setDate(newDate);

@@ -16,7 +16,7 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Stack from '@mui/material/Stack';
-import csvInstr from '../assets/csvInstructions.png';
+import csvInstr from '../assets/csvInstructionsFormat.png';
 import Papa from "papaparse";
 import { Grid } from '@mui/material';
 import UploadContext from "../contexts/UploadContext";

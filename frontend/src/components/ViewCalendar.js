@@ -1,6 +1,7 @@
-import React, { useState, useContext, useMemo, useRef } from "react";
+import React, { useState, useContext, useMemo, useRef, } from "react";
 import Calendar from 'react-calendar';
-import { Box, Grid, Button, IconButton } from "@mui/material";
+import { Box, Grid, Button, IconButton, Divider, Stack, FormControl, Select, MenuItem } from "@mui/material";
+import { borderBottomColor, fontSize, styled } from "@mui/system";
 import UploadContext from "../contexts/UploadContext";
 import { AgGridReact } from 'ag-grid-react';
 import { createRoot } from "react-dom/client";
@@ -15,10 +16,21 @@ import DaySideBar from "./DaySideBar";
 // import { ModuleRegistry } from "@ag-grid-community/core";
 // ModuleRegistry.registerModules([ClientSideRowModelModule]);
 
+
+//style for the selected MUI
+const StyledSelect = styled(Select)(({theme}) => ({
+    color: '#5790FF',
+    fontSize: '1.7rem',
+    '& .MuiSelect-icon': {
+        color: '#5790FF',
+        fontSize: '1.8rem',
+    },
+}));
+
 export default function ViewCalendar() {
     const gridRef = useRef();
 
-    const { daysOfRotationValue, startDayValue, startDateValue, endDateValue, staffArrayValue, cellValueValue, dayTypeValue } = useContext(UploadContext);
+    const { daysOfRotationValue, startDayValue, startDateValue, endDateValue, staffArrayValue, cellValueValue, dayTypeValue, cellIndexValue, cellChangeDayValue } = useContext(UploadContext);
     const [, setDaysOfRotation] = daysOfRotationValue;
     const [, setStartDay] = startDayValue;
     const [, setStartDate] = startDateValue;
@@ -26,6 +38,8 @@ export default function ViewCalendar() {
     const [, setStaffArray] = staffArrayValue;
     const [, setCellValue] = cellValueValue;
     const [, setDayType] = dayTypeValue;
+    const [, setCellIndex] = cellIndexValue;
+    const [, setCellChangeDay] = cellChangeDayValue;
     // const [, setcalendarMonth] = calendarMonthValue;
     
     const duties = ["Cafeteria 1", "Cafeteria 2", "Gym/Weight Room", "Bleachers", "Library", "Foyer", "Rover 1", "Rover 2", "Guidance"];
@@ -33,7 +47,7 @@ export default function ViewCalendar() {
     const endTimes = ["11:29", "11:35", "11:32", "11:29", "11:35", "11:35", "11:29", "11:35", "11:35", "11:35"];
     const [selectedDay, setSelectedDay] = useState("Choose A Day")
     const [rowData, setRowData] = useState([]);
-
+    const [dayTypes, setDayTypes] = useState(dayTypeValue[0]);
 
     var datesArray = [];
     var numDays = 0;
@@ -103,6 +117,7 @@ export default function ViewCalendar() {
         commenceDate.setDate(commenceDate.getDate()+1);
     }
 
+    const tempDatesArray = datesArray
     numDays = (datesArray.length)-diffEndDates-diffStartDates+1;
 
     const loadCal = () => {
@@ -127,6 +142,7 @@ export default function ViewCalendar() {
 
         const newData = [];
 
+        var dutiesLength = duties.length - 3
         var orderedStaff = Array.from({length: numDays}, () => Array(8).fill(""));
 
         for (var i = 0; i < staffArrayValue[0].length; i++) {
@@ -251,7 +267,7 @@ export default function ViewCalendar() {
             var currDay = "Day" + dayNum;
             placedStaffTrue = false;
             for (var k = 0; k < duties.length-1; k++) {
-                if (k!=duties.length-2) {
+                if (k<duties.length-2-2) {
                     for (var j = 0; j < staffArrayCopy.length; j++) {
                         if ((placedStaff.includes(staffArrayCopy[j]) == false && orderedStaff[i].includes(staffArrayCopy[j] == false)) || (staffArrayCopy.length != 0 && placedStaff.length == staffArrayCopy.length && orderedStaff[i].includes(staffArrayCopy[j] == false))) {
                             var tempIndex = staffArrayValue[0].findIndex(item => item.Staff === staffArrayCopy[j]);
@@ -262,7 +278,7 @@ export default function ViewCalendar() {
                                     staffArrayValue[0][tempIndex].ShiftsAdded++;
                                     orderedStaff[i][k] = staffArrayCopy[j];
                                     placedStaffTrue = true;
-                                    if (i == numDays-1 && k == duties.length-1-2) {
+                                    if (i == numDays-1 && k == duties.length-1-2-2) {
                                         filledStaff = true;
                                     }
                                     break;
@@ -280,7 +296,7 @@ export default function ViewCalendar() {
                 shuffle(staffArrayCopyCopy);
                 placedStaffTrue2 = false;
                 for (var k = 0; k < duties.length-1; k++) {
-                    if (k!==duties.length-2) {
+                    if (k<duties.length-4) {
                         for (var j = 0; j < staffArrayCopyCopy.length; j++) {
                             var tempIndex2 = staffArrayValue[0].findIndex(item => item.Staff === staffArrayCopyCopy[j]);
                             var varProperty2 = currDay;
@@ -288,9 +304,8 @@ export default function ViewCalendar() {
                             // var indexDiff = orderedStaff.findLastIndex(arr => arr.includes(staffArrayCopyCopy[j]));
                             var staffPerson = staffArrayCopyCopy[j];
                             var indexOfLast = orderedStaff.findLastIndex(arr => arr.includes(staffPerson));
-                            var indexDiff2 = Math.floor((i+diffStartDates)/5);
-                            var indexDiff3 = Math.floor((indexOfLast+diffStartDates)/5);
-                            var differenceDutyDates = i-indexOfLast
+                            var indexDiff2 = Math.floor((i+diffStartDates)/5); //current day fraction
+                            var indexDiff3 = Math.floor((indexOfLast+diffStartDates)/5); //last day with same teacher fraction
                             if (orderedStaff[i].includes(staffArrayCopyCopy[j]) == false && staffArrayValue[0][tempIndex2].ShiftsAdded < staffArrayValue[0][tempIndex2].ShiftsLeft) {
                                 //indexOfLast === -1
                                 if (indexDiff2-indexDiff3>1 || indexOfLast === -1) {
@@ -323,7 +338,7 @@ export default function ViewCalendar() {
                                                     orderedStaff[i][k] = staffArrayCopyCopy[j];
                                                     placedStaffTrue = true;
                                                     placedStaffTrue2 = true;
-                                                    if (i === numDays-1 && k === duties.length-1-2) {
+                                                    if (i === numDays-1 && k === duties.length-1-2-2) {
                                                         filledStaff = true;
                                                     }
                                                     break;
@@ -337,7 +352,7 @@ export default function ViewCalendar() {
                                                 orderedStaff[i][k] = staffArrayCopyCopy[j];
                                                 placedStaffTrue = true;
                                                 placedStaffTrue2 = true;
-                                                if (i === numDays-1 && k === duties.length-1-2) {
+                                                if (i === numDays-1 && k === duties.length-1-2-2) {
                                                     filledStaff = true;
                                                 }
                                                 break;
@@ -351,7 +366,7 @@ export default function ViewCalendar() {
                                             orderedStaff[i][k] = staffArrayCopyCopy[j];
                                             placedStaffTrue = true;
                                             placedStaffTrue2 = true;
-                                            if (i === numDays-1 && k === duties.length-1-2) {
+                                            if (i === numDays-1 && k === duties.length-1-2-2) {
                                                 filledStaff = true;
                                             }
                                             break;
@@ -425,7 +440,47 @@ export default function ViewCalendar() {
         for (var g=0; g<diffEndDates; g++) {
             orderedStaff.push(['','','','','','','', ''])
         }
+    
+        /* ----------------------SCHOOL/PA DAY/HOLIDAY---------------------- */
+        
+        datesArray = tempDatesArray;
+        console.log(cellChangeDayValue);
+        
+        setCellChangeDay(cellChangeDayValue[0].sort((a, b) => a.Index - b.Index));
+        console.log(cellChangeDayValue);
 
+        // if (cellChangeDayValue[0][0].Index !== -1) {
+        for (var i=0; i<cellChangeDayValue[0].length; i++) {
+            if (cellChangeDayValue[0][i].Index !== -1) {
+                console.log("-1 chnaged", cellChangeDayValue[0][i].DaySchoolType, cellChangeDayValue[0][i].Index); //dayschoolday
+                var dateOnly = (datesArray[cellChangeDayValue[0][i].Index]).substring(0, (datesArray[cellChangeDayValue[0][i].Index]).length-5); //get the date part (AKA without "Day #")
+                datesArray[cellChangeDayValue[0][i].Index] = dateOnly + cellChangeDayValue[0][i].DaySchoolType; //Add PA Day or Holiday afterwards
+
+                //push the staff members to the next day
+                orderedStaff.splice(cellChangeDayValue[0][i].Index, 0, ['','','','','','','', '']);
+                orderedGym.splice(cellChangeDayValue[0][i].Index,0, "")
+            }
+        }
+        var dayTemp = parseInt((datesArray[0]).substring(datesArray[0].length-1, datesArray[0].length));
+        var dayOfTemp = "";
+        // console.log(startDayTemp)
+        for (var j=0; j<datesArray.length; j++) {
+            dayOfTemp = (datesArray[j]).substring(datesArray[j].length-1, datesArray[j].length);
+            if (dayOfTemp === "1" || dayOfTemp === "2" || dayOfTemp === "3" || dayOfTemp === "4") {
+                datesArray[j] = (datesArray[j]).substring(0, datesArray[j].length-1) + dayTemp.toString();
+                if (dayTemp === tempDOR) {
+                    dayTemp = 1;
+                } else {
+                    dayTemp ++;
+                }
+            }
+
+        }
+
+        // }
+        // else {
+        //     datesArray[cellChangeDayValue[0][0].Index] = tempDatesArray[cellChangeDayValue[0][0].Index];
+        // }
         
         /* ----------------------ADD ITEMS INTO CALENDAR---------------------- */
 
@@ -447,7 +502,7 @@ export default function ViewCalendar() {
             setRowData([...newData]);
         }
     }
-    
+
     /* ----------------------COLUMN INITIALIZATION---------------------- */
     
     const [colDefs, setColDefs] = useState([
@@ -499,27 +554,74 @@ export default function ViewCalendar() {
         }
     }
 
-    const cellFocused = (evt) => {
-        const focusedCell =  evt.api.getFocusedCell();
-        const row = evt.api.getDisplayedRowAtIndex(focusedCell.rowIndex)
-        const gridValue = evt.api.getValue(focusedCell.column, row)
-        setCellValue(gridValue)
-        if (gridValue === "PA Day") {
+    /* ----------------------FUNCTIONS---------------------- */
+
+    const cellFocused = (event) => {
+        const focusedCell =  event.api.getFocusedCell();
+        const row = event.api.getDisplayedRowAtIndex(focusedCell.rowIndex);
+        const gridValue = event.api.getValue((event.api.getFocusedCell()).column, event.api.getDisplayedRowAtIndex(focusedCell.rowIndex));
+        setCellValue(gridValue);
+        // const gridIndex = event.api.getIndex(focusedCell.column, row);
+        // console.log(focusedCell.rowIndex, focusedCell.column)
+        const tempCellIndex = (focusedCell.rowIndex)/10*5+(focusedCell.column.instanceId)-2;
+        console.log(tempCellIndex);
+        setCellIndex(tempCellIndex);
+        console.log(cellIndexValue);
+        // console.log(focusedCell.column.instanceId)
+        let lastFew = gridValue.substring(gridValue.length-6, gridValue.length);
+        console.log(lastFew)
+        if (lastFew === "PA Day") {
             setDayType("PA Day")
         }
-        else if (gridValue === "Holiday") {
+        else if (lastFew === "oliday") {
             setDayType("Holiday")
         }
         else {
             setDayType("School")
         }
+        setDayTypes(dayTypeValue[0]);
         console.log(row, setCellValue)
 
     };
 
+    const dayTypeChange = (event) => {
+        console.log("change " )
+        setDayTypes(event.target.value);
+        let dayT = event.target.value;
+        // setDayType()
+        // setCellChangeDay([{Index: cellIndexValue[0], DaySchoolType: dayT}]);
+        // setCellChangeDay(1);
+        for (var i=0; i<cellChangeDayValue[0].length; i++) {
+            if (cellChangeDayValue[0][i].Index === cellIndexValue[0]) {
+
+                console.log("indexCell:", cellIndexValue[0], "indexALR:", cellChangeDayValue[0][i].Index)
+                console.log("same")
+                let t = cellChangeDayValue[0];
+                t.splice(i,1);
+                console.log ("t:", t);
+                setCellChangeDay(t);
+                break;
+            }
+        }
+        console.log("day:", dayT)
+        if (dayT != 'School') {
+            // if (cellChangeDayValue[0][0].Index === -1) {
+            //     console.log("neg")
+            //     setCellChangeDay([{Index: cellIndexValue[0], DaySchoolType: dayT}]);
+            //     console.log(cellChangeDayValue);
+            console.log("to pa")
+            setCellChangeDay(oldArray => [...oldArray, {Index: cellIndexValue[0], DaySchoolType: dayT}]);
+        }
+        console.log(cellChangeDayValue)
+    }
+
+    /* ----------------------EXPORT---------------------- */
+
     const exportButton = () => {
         gridRef.current.api.exportDataAsCsv();
     };
+    
+    // const classes = useStyles();
 
     return (
         <Box
@@ -577,7 +679,7 @@ export default function ViewCalendar() {
 
             >
                 <div
-                    style={{height: "100%", width: "50rem", margin: 0, backgroundColor: "#ffffff", textAlign: "center", borderRadius: "1rem"}}
+                    style={{height: "100%", width: "50rem", margin: 0, backgroundColor: "#ffffff", textAlign: "center", borderRadius: "0.8rem"}}
                     // position="absolute"
                 >
                     <AgGridReact
@@ -599,10 +701,31 @@ export default function ViewCalendar() {
                     borderRadius='1rem'
                     // flexDirection= 'column'
                 >
-                    {/* <p style={{color: "#C1D6FF", fontSize: "2rem", marginLeft: "2.5rem", marginTop:"4.3rem", marginBottom: "0rem", paddingBottom: "0rem"}}>{cellValueValue[0]}</p> */}
-                    {/* <p style={{color: "#C1D6FF", fontSize: "2rem", marginLeft: "2.5rem", marginTop:"4.3rem", marginBottom: "0rem", paddingBottom: "0rem"}}>{selectedDay}</p>
-                    <p style={{fontSize: "2rem", marginLeft: "1.2rem", marginTop: "-1rem", paddingTop: "0rem", color: "#80828A"}}>________________________ </p> */}
-                    <DaySideBar cellValue={cellValueValue[0]} dayTypes={dayTypeValue[0]} />
+                    <p style={{color: "#C1D6FF", fontSize: "2rem", marginLeft: "2.5rem", marginTop:"4.3rem", marginBottom: "0rem", paddingBottom: "1rem"}}>{cellValueValue[0]}</p>
+                    {/* <p style={{color: "#C1D6FF", fontSize: "2rem", marginLeft: "2.5rem", marginTop:"4.3rem", marginBottom: "0rem", paddingBottom: "0rem"}}>{selectedDay}</p> */}
+                    {/* <p style={{fontSize: "2rem", marginLeft: "1.2rem", marginTop: "-1rem", paddingTop: "0rem", color: "#80828A"}}>________________________ </p> */}
+                    {/* <DaySideBar cellValue={cellValueValue[0]} dayTypes={dayTypeValue[0]} cellIndex={cellIndexValue[0]}/> */}
+                    <Divider sx={{background: "#55575E", borderBottomWidth: 2}}/>
+                    <Stack direction="horizontal" marginTop='1rem'>
+                        <p style={{color: "#80828A", marginLeft: "1.5rem", marginRight: '1rem', fontSize: "1.7rem", marginTop: "0.4rem"}}>Day Type:</p>
+                        <FormControl variant="standard" >
+                        <StyledSelect
+                            id="day-type"
+                            value={dayTypes}
+                            onChange={dayTypeChange}
+                            // className={classes.selected}
+                            // // class={{
+                            // // root: '#5790FF'
+                            // // }}
+                            // color="primary"
+                            // // color="#5790FF"
+                        >
+                            <MenuItem value={"School"}>School</MenuItem>
+                            <MenuItem value={"PA Day"}>PA Day</MenuItem>
+                            <MenuItem value={"Holiday"}>Holiday</MenuItem>
+                        </StyledSelect>
+                        </FormControl>
+                    </Stack>
                 </Box>
             </Box>
         

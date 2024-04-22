@@ -1,6 +1,6 @@
-import { initializeApp } from 'firebase/app';
-import { getAnalytics } from "firebase/analytics";
-import { getAuth, signInWithRedirect, getRedirectResult, GoogleAuthProvider } from "firebase/auth";
+// import { initializeApp } from 'firebase/app';
+// import { getAnalytics } from "firebase/analytics";
+// import { getAuth, signInWithRedirect, getRedirectResult, GoogleAuthProvider } from "firebase/auth";
 
 
 function App() {
