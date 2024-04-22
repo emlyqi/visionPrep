@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -15,8 +15,8 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Stack from '@mui/material/Stack';
-import BlueLogo from '../assets/visionprep logo blue.png';
-import WhiteLogo from '../assets/visionprep logo blue.png';
+import blueLogo from '../assets/visionprep logo blue.png';
+import whiteLogo from '../assets/visionprep logo white.png';
 
 function Navbar(props) {
     const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -73,6 +73,9 @@ function Navbar(props) {
         },
       }));
 
+      // change logo on hover
+      const [over, setOver] = useState(false);
+
     return (
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
@@ -84,13 +87,27 @@ function Navbar(props) {
               sx={{mr: 2, display: { sm: 'none' } }}
             >
             </IconButton>
+            <div
+              onMouseOver={() => setOver(true)}
+              onMouseOut={() => setOver(false)}
+            >
+              <a href="/">
+                <img
+                  src={over ? whiteLogo : blueLogo} 
+                  alt="'visionPrep Logo" 
+                  style={{
+                    width:'auto',
+                    height:'3rem',
+                  }}
+                />
+              </a>
+            </div>
             <Typography
               variant="h6"
               component="div"
               color="#5790FF"
               sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
             >
-              'visionPrep
             </Typography>
             <List>
                 <ListItem>
@@ -113,7 +130,7 @@ function Navbar(props) {
                 
                 <List>
                     <ListItem disablePadding>
-                        <ListItemButton component={Link} to="/login" style={{borderRadius: '2.375rem', margin:'1.94rem', width: '12.875rem', height: '4.3125rem' }} 
+                        <ListItemButton component={Link} to="/upload" style={{borderRadius: '2.375rem', margin:'1.94rem', width: '12.875rem', height: '4.3125rem' }} 
                             sx={{
                                 backgroundColor: '#5790FF',                                
                                 transition: '.4s',
@@ -127,7 +144,7 @@ function Navbar(props) {
                                 color: '#010101',
                                 fontFamily: 'Roboto'
                               }}>
-                            <ListItemText primaryTypographyProps={{fontSize: '2rem'}} primary="Log in" />
+                            <ListItemText primaryTypographyProps={{fontSize: '2rem'}} primary="Start!" />
                         </ListItemButton>
                     </ListItem>
                 </List>
