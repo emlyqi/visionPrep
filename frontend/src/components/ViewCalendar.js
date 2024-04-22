@@ -161,10 +161,24 @@ export default function ViewCalendar() {
 
         console.log(1);
         shuffle(canGym); 
+        var mon = 0;
+        if (diffStartDates === 0) {
+            mon = 0;
+        } else {
+        var mon = 5-diffStartDates;
+        }
+
         for (var i = 0; i < numDays; i++) {
+            // no gym on mondays
+            if ((i-mon)%5 === 0) {
+                orderedGym.push("");
+                continue;
+            }
             var currDay = "Day" + dayNum;
     
             placedGymTrue = false;
+            
+            // repeats until program finds someone who is available on that day
             for (var j = 0; j < canGym.length; j++) { 
                 console.log(2);
                 if ((placedGym.includes(canGym[j]) == false) || (canGym.length != 0 && placedGym.length == canGym.length)) {
@@ -178,11 +192,12 @@ export default function ViewCalendar() {
                         if (orderedGym.length == numDays) {
                             filledGym = true;
                         }
-                        break;
+                        break; // if program finds someone
                     }
                 }
             } 
     
+            // if program doesn't find anyone
             if (placedGymTrue == false) {
                 console.log(3);
                 // if no one can supervise on that day, use someone that has already been placed for supervision 
@@ -247,6 +262,7 @@ export default function ViewCalendar() {
         for (var z=0; z<diffStartDates; z++) {
             orderedGym.unshift("");
         }
+
     
         //non-gym teacher placement
         // var orderedStaff = Array.from({length: numDays}, () => Array(7).fill(""));
