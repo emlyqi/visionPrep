@@ -57,7 +57,10 @@ function DoRButts () {
 
 
     return (
-        <ToggleButtonGroup
+        <ToggleButtonGroup 
+            sx={{
+                paddingLeft: '.5rem'
+            }}
             value={daysOfRotationValue}
             exclusive
             onChange={handleDOR}

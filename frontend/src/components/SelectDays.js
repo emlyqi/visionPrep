@@ -58,9 +58,10 @@ function SelectDays () {
                     letterSpacing: '0.0625rem',
                     fontFamily: 'sans-serif',
                     verticalAlign: 'center',
-                    fontSize: '1.2rem',
+                    fontSize: '1.5rem',
                     color: '#010101',
                     display: 'inline-block',
+                    paddingTop: '.5rem',
                     paddingLeft: '2.5625rem',
                     whiteSpace: 'nowrap'
                   }}
@@ -114,11 +115,12 @@ function SelectDays () {
                     letterSpacing: '0.0625rem',
                     fontFamily: 'sans-serif',
                     verticalAlign: 'center',
-                    fontSize: '1.2rem',
+                    fontSize: '1.5rem',
                     color: '#010101',
                     display: 'inline',
                     justifyContent: 'left',
                     paddingLeft: '2.5625rem',
+                    paddingTop: '.5rem',
                     whiteSpace: 'nowrap'
                   }}
                 >
@@ -130,7 +132,7 @@ function SelectDays () {
                   display='flex'
                   paddingLeft='1.5625rem'
                 >
-                  <FormControl sx={{m:1, minWidth: "9.375rem", Height: "3.83rem"}}>
+                  <FormControl sx={{m:1, minWidth: "9.375rem", Height: "3.83rem", paddingLeft: '10.2rem', paddingTop: '0.15rem'}}>
                     <Select
                       value={startDayz}
                       onChange={handleChange}
