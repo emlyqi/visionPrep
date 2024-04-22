@@ -7,7 +7,7 @@ import UploadContext from "../contexts/UploadContext";
 function DoRButts () {
     const MuiToggleButton = styled(ToggleButton)({
         fontSize: '1.5625rem',
-        color: "#3D72D9",
+        color: "#5790FF",
         borderRadius: '3.125rem',
         fontFamily: 'sans-serif',
         fontWeight: 'bold',
@@ -16,12 +16,12 @@ function DoRButts () {
         margin: '0.75rem',
         padding: '0.3rem 1.85rem',
         border: 0,
-        backgroundColor: "#C1D6FF",
+        backgroundColor: "#3D72D9",
         transition: '.3s',
         width: '6.3125rem',
         height: '3.83rem',
         '&:hover': { backgroundColor: '#8CB3FF', color: "4984F6" },
-        "&.Mui-selected, &.Mui-selected:hover": {backgroundColor: '#3D72D9', color: "#5790FF"}
+        "&.Mui-selected, &.Mui-selected:hover": {backgroundColor: '#C1D6FF', color: "#3D72D9"}
 
     })
 

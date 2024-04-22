@@ -40,7 +40,7 @@ function WelcomePage() {
             src={welcomePic} 
             alt="emily and jamie make a deal (baby version)" 
             width="auto"
-            height="80%"
+            height="74%"
             margin="auto"
             
           />

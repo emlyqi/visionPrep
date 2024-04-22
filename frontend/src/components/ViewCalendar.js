@@ -64,6 +64,8 @@ export default function ViewCalendar() {
     const dayWeekNum = commenceDate.getDay();
     const endDayWeekNum = endingDate.getDay();
     var tempStartingDay = startDayValue[0];
+    var firstDay = 0;
+    var first = true;
     var tempDOR = daysOfRotationValue[0];
     var teachDay = false;
     // var cellValue = "Choose A Day";
@@ -106,6 +108,10 @@ export default function ViewCalendar() {
             }
             else {
                 datesArray.push((commenceDate.getMonth() + 1).toString() + "/" + (commenceDate.getDate()).toString() + "/" + (commenceDate.getFullYear()).toString() + " | Day " + tempStartingDay);
+                if (first) {
+                    firstDay = tempStartingDay;
+                    first = false;
+                }
                 if (tempStartingDay<tempDOR) {
                     tempStartingDay++;
                 } else {
@@ -161,19 +167,13 @@ export default function ViewCalendar() {
 
         console.log(1);
         shuffle(canGym); 
-        var mon = 0;
-        if (diffStartDates === 0) {
-            mon = 0;
-        } else {
-        var mon = 5-diffStartDates;
-        }
 
         for (var i = 0; i < numDays; i++) {
             // no gym on mondays
-            if ((i-mon)%5 === 0) {
-                orderedGym.push("");
-                continue;
-            }
+            // if ((i-mon)%5 === 0) {
+            //     orderedGym.push("");
+            //     continue;
+            // }
             var currDay = "Day" + dayNum;
     
             placedGymTrue = false;
@@ -447,11 +447,13 @@ export default function ViewCalendar() {
         console.log(11.1)
 
         var numStaffRepetitions = Math.floor(numDays/orderedStaff.length);
-        console.log(11.2)
+        console.log(11.2, "staffrep:", numStaffRepetitions, "numdays:", numDays, "stafflengt:", orderedStaff.length)
 
         var tempStaffArray = orderedStaff;
+        console.log(11.21)
         for (var i = 0; i < numStaffRepetitions-1; i++) {
             orderedStaff = orderedStaff.concat(tempStaffArray);
+            console.log(11.22)
         }
         console.log(11.3)
 
@@ -491,9 +493,10 @@ export default function ViewCalendar() {
                 orderedGym.splice(cellChangeDayValue[0][i].Index,0, "")
             }
         }
-        var dayTemp = parseInt((datesArray[0]).substring(datesArray[0].length-1, datesArray[0].length));
+        var dayTemp = tempStartingDay;
         var dayOfTemp = "";
         // console.log(startDayTemp)
+        console.log(tempDatesArray)
         for (var j=0; j<datesArray.length; j++) {
             dayOfTemp = (datesArray[j]).substring(datesArray[j].length-1, datesArray[j].length);
             if (dayOfTemp === "1" || dayOfTemp === "2" || dayOfTemp === "3" || dayOfTemp === "4") {
@@ -511,6 +514,22 @@ export default function ViewCalendar() {
         // else {
         //     datesArray[cellChangeDayValue[0][0].Index] = tempDatesArray[cellChangeDayValue[0][0].Index];
         // }
+
+        /* ----------------------NO GYM MONDAY---------------------- */
+
+        var mon = 0;
+        if (diffStartDates === 0) {
+            mon = 0;
+        } else {
+        var mon = 5-diffStartDates;
+        }
+        
+        for (var i = 0; i < datesArray.length; i++) {
+            // no gym on mondays
+            if ((i-mon)%5 === 0) {
+                orderedGym[i]="";
+            }
+        }
         
         /* ----------------------ADD ITEMS INTO CALENDAR---------------------- */
 
