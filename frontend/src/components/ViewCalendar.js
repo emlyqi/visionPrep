@@ -171,86 +171,81 @@ export default function ViewCalendar() {
         shuffle(canGym); 
 
         for (var i = 0; i < numDays; i++) {
+            // no gym on mondays
+            // if ((i-mon)%5 === 0) {
+            //     orderedGym.push("");
+            //     continue;
+            // }
             var currDay = "Day" + dayNum;
     
             placedGymTrue = false;
             
-            //if it's a Monday, don't add any gym teachers
-            if (gymDays%5 == 0) {
-                orderedGym.push("");
-            }
-
-            //if it's not a Monday, add gym teacher
-            else {
-                // repeats until program finds someone who is available on that day
-                for (var j = 0; j < canGym.length; j++) { 
-                    console.log(2);
-                    if ((placedGym.includes(canGym[j]) == false) || (canGym.length != 0 && placedGym.length == canGym.length)) {
-                        var tempIndex = staffArrayValue[0].findIndex(item => item.Staff === canGym[j]);
-                        var varProperty = currDay;
-                        if (staffArrayValue[0][tempIndex][varProperty] == "x" && placedGym.includes(canGym[j]) == false && staffArrayValue[0][tempIndex].ShiftsAdded < staffArrayValue[0][tempIndex].ShiftsLeft) {
-                            placedGym.push(canGym[j]);
-                            staffArrayValue[0][tempIndex].ShiftsAdded++;
-                            orderedGym.push(canGym[j]);
-                            placedGymTrue = true;
-                            if (orderedGym.length == numDays) {
-                                filledGym = true;
-                            }
-                            break; // if program finds someone
+            // repeats until program finds someone who is available on that day
+            for (var j = 0; j < canGym.length; j++) { 
+                console.log(2);
+                if ((placedGym.includes(canGym[j]) == false) || (canGym.length != 0 && placedGym.length == canGym.length)) {
+                    var tempIndex = staffArrayValue[0].findIndex(item => item.Staff === canGym[j]);
+                    var varProperty = currDay;
+                    if (staffArrayValue[0][tempIndex][varProperty] == "x" && placedGym.includes(canGym[j]) == false && staffArrayValue[0][tempIndex].ShiftsAdded < staffArrayValue[0][tempIndex].ShiftsLeft) {
+                        placedGym.push(canGym[j]);
+                        staffArrayValue[0][tempIndex].ShiftsAdded++;
+                        orderedGym.push(canGym[j]);
+                        placedGymTrue = true;
+                        if (orderedGym.length == numDays) {
+                            filledGym = true;
                         }
-                    }
-                } 
-        
-                // if program doesn't find anyone
-                if (placedGymTrue == false) {
-                    console.log(3);
-                    // if no one can supervise on that day, use someone that has already been placed for supervision 
-                    // but shuffle the list order so they aren't used as backup every time
-                    var canGymCopy = canGym;
-                    shuffle(canGymCopy);
-                    placedGymTrue2 = false;
-                    for (var j = 0; j < canGymCopy.length; j++) {
-                        var tempIndex2 = staffArrayValue[0].findIndex(item => item.Staff === canGymCopy[j]);
-                        var varProperty2 = currDay;
-                        if (staffArrayValue[0][tempIndex2][varProperty2] == "x" && staffArrayValue[0][tempIndex2].ShiftsAdded < staffArrayValue[0][tempIndex2].ShiftsLeft) {
-                            if (placedGym.includes(canGymCopy[j]) == false) {
-                                placedGym.push(canGymCopy[j]);
-                            }
-                            staffArrayValue[0][tempIndex2].ShiftsAdded++;
-                            orderedGym.push(canGymCopy[j]);
-                            placedGymTrue = true;
-                            placedGymTrue2 = true;
-                            if (orderedGym.length == numDays) {
-                                filledGym = true;
-                            }
-                            break;
-                        }
+                        break; // if program finds someone
                     }
                 }
-        
-                console.log(4);
-                if (canGym.length != 0 && placedGym.length == canGym.length) {
-                    if (currDay == "Day" + tempDOR.toString()) {
+            } 
+    
+            // if program doesn't find anyone
+            if (placedGymTrue == false) {
+                console.log(3);
+                // if no one can supervise on that day, use someone that has already been placed for supervision 
+                // but shuffle the list order so they aren't used as backup every time
+                var canGymCopy = canGym;
+                shuffle(canGymCopy);
+                placedGymTrue2 = false;
+                for (var j = 0; j < canGymCopy.length; j++) {
+                    var tempIndex2 = staffArrayValue[0].findIndex(item => item.Staff === canGymCopy[j]);
+                    var varProperty2 = currDay;
+                    if (staffArrayValue[0][tempIndex2][varProperty2] == "x" && staffArrayValue[0][tempIndex2].ShiftsAdded < staffArrayValue[0][tempIndex2].ShiftsLeft) {
+                        if (placedGym.includes(canGymCopy[j]) == false) {
+                            placedGym.push(canGymCopy[j]);
+                        }
+                        staffArrayValue[0][tempIndex2].ShiftsAdded++;
+                        orderedGym.push(canGymCopy[j]);
+                        placedGymTrue = true;
+                        placedGymTrue2 = true;
+                        if (orderedGym.length == numDays) {
+                            filledGym = true;
+                        }
                         break;
                     }
-                } else if (filledGym == true) {
-                    break;
-                }
-        
-                if (placedGymTrue == false) {
-                    orderedGym.push("");
-                }
-        
-                if (dayNum < tempDOR) {
-                    dayNum ++;
-                } else {
-                    dayNum = 1;
                 }
             }
-            gymDays ++;
+    
+            console.log(4);
+            if (canGym.length != 0 && placedGym.length == canGym.length) {
+                if (currDay == "Day" + tempDOR.toString()) {
+                    break;
+                }
+            } else if (filledGym == true) {
+                break;
+            }
+    
+            if (placedGymTrue == false) {
+                orderedGym.push("");
+            }
+    
+            if (dayNum < tempDOR) {
+                dayNum ++;
+            } else {
+                dayNum = 1;
+            }
     
         }
-        console.log(orderedGym)
     
         console.log(5);
         var numGymRepetitions = Math.floor(numDays/orderedGym.length);
@@ -269,7 +264,6 @@ export default function ViewCalendar() {
         for (var z=0; z<diffStartDates; z++) {
             orderedGym.unshift("");
         }
-        console.log(orderedGym)
 
     
         //non-gym teacher placement
@@ -532,12 +526,12 @@ export default function ViewCalendar() {
         // } else {
         // var mon = 5-diffStartDates;
         // }
-        // for (var i = 0; i < datesArray.length; i++) {
-        //     // no gym on mondays
-        //     if ((i-mon)%5 === 0) {
-        //         orderedGym[i]="";
-        //     }
-        // }
+        for (var i = 0; i < datesArray.length; i++) {
+            // no gym on mondays
+            if (i%5 === 0) {
+                orderedGym[i]="";
+            }
+        }
         
         /* ----------------------ADD ITEMS INTO CALENDAR---------------------- */
 
