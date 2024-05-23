@@ -64,6 +64,7 @@ export default function ViewCalendar() {
     const dayWeekNum = commenceDate.getDay();
     const endDayWeekNum = endingDate.getDay();
     var tempStartingDay = startDayValue[0];
+    console.log("tempstart",tempStartingDay)
     var firstDay = 0;
     var first = true;
     var tempDOR = daysOfRotationValue[0];
@@ -168,7 +169,6 @@ export default function ViewCalendar() {
 
         console.log(1);
         shuffle(canGym); 
-        var gymPlaced = -1;
 
         for (var i = 0; i < numDays; i++) {
             var currDay = "Day" + dayNum;
@@ -212,54 +212,24 @@ export default function ViewCalendar() {
                     for (var j = 0; j < canGymCopy.length; j++) {
                         var tempIndex2 = staffArrayValue[0].findIndex(item => item.Staff === canGymCopy[j]);
                         var varProperty2 = currDay;
-                        var gymPerson = canGymCopy[j];
-                        var indexOfLastGym = orderedGym.findLastIndex(arr => arr.includes(gymPerson));
-                        var indexDiff2Gym = Math.floor((i+diffStartDates)/5); //current day fraction
-                        var indexDiff3Gym = Math.floor((indexOfLastGym+diffStartDates)/5); //last day with same teacher fraction
                         if (staffArrayValue[0][tempIndex2][varProperty2] == "x" && staffArrayValue[0][tempIndex2].ShiftsAdded < staffArrayValue[0][tempIndex2].ShiftsLeft) {
                             if (placedGym.includes(canGymCopy[j]) == false) {
-                                if (indexDiff2Gym-indexDiff3Gym>1 || indexOfLastGym === -1) {
-                                    if (gymPlaced===0) {
-                                        var multTwentyGym = 20;
-                                        while (multTwentyGym<(i-1)) {
-                                            multTwentyGym += 20;
-                                        }
-                                        gymPlaced = 1;
-                                    }
-                                    if (gymPlaced===1) {
-                                        if (i>=multTwenty-1-(5-diffStartDates)) {
-                                            var thereGym = false;
-                                            for (var p=0; p<(5-diffStartDates); p++) {
-                                                if(canGymCopy[j] === orderedGym[p]) {
-                                                    there = true;
-                                                    break;
-                                                }
-                                            }
-                                            if (there) {
-                                                break;
-                                            }
-                                        }
-                                        if (!there) {
-                                            placedGym.push(canGymCopy[j]);
-                                            staffArrayValue[0][tempIndex2].ShiftsAdded++;
-                                            orderedGym.push(canGymCopy[j]);
-                                            placedGymTrue = true;
-                                            placedGymTrue2 = true;
-                                            if (orderedGym.length == numDays) {
-                                                filledGym = true;
-                                            }
-                                            break;
-                                        }
-                                    }
-                                }
+                                placedGym.push(canGymCopy[j]);
                             }
+                            staffArrayValue[0][tempIndex2].ShiftsAdded++;
+                            orderedGym.push(canGymCopy[j]);
+                            placedGymTrue = true;
+                            placedGymTrue2 = true;
+                            if (orderedGym.length == numDays) {
+                                filledGym = true;
+                            }
+                            break;
                         }
                     }
                 }
         
                 console.log(4);
                 if (canGym.length != 0 && placedGym.length == canGym.length) {
-                    allPlaced = 0;
                     if (currDay == "Day" + tempDOR.toString()) {
                         break;
                     }
@@ -528,14 +498,17 @@ export default function ViewCalendar() {
                 orderedGym.splice(cellChangeDayValue[0][i].Index,0, "")
             }
         }
-        var dayTemp = tempStartingDay;
+        var dayTemp = startDayValue[0];
+        console.log(dayTemp)
         var dayOfTemp = "";
         // console.log(startDayTemp)
         console.log(tempDatesArray)
         for (var j=0; j<datesArray.length; j++) {
             dayOfTemp = (datesArray[j]).substring(datesArray[j].length-1, datesArray[j].length);
+            console.log("j:", j, "dayoftemp:", dayOfTemp)
             if (dayOfTemp === "1" || dayOfTemp === "2" || dayOfTemp === "3" || dayOfTemp === "4") {
                 datesArray[j] = (datesArray[j]).substring(0, datesArray[j].length-1) + dayTemp.toString();
+                console.log(datesArray[j])
                 if (dayTemp < tempDOR) {
                     dayTemp ++;
                 } else {
@@ -544,6 +517,7 @@ export default function ViewCalendar() {
             }
 
         }
+        console.log(tempDatesArray)
 
         // }
         // else {
