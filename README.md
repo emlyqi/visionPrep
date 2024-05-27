@@ -1,20 +1,20 @@
 # 'visionPrep
 'visionPrep is a web app that allows the user to easily prepare a school's supervision plan for a specified time period.
 
-'visionPrep can be accessed through the following link: https://visionprep24.web.app/
+Access it here: visionprep24.web.app/
 ## Features
 ### Upload
-The user can upload a .csv file which contains the staff names, loads, free days, etc.
+The user can upload a CSV file that contains the staff names, loads, available days, etc.
 ### Customization
-The user can further customize the calendar with information such as the number of days of rotation, the day of the starting date, and the time interval.
+The user can further customize the calendar with information such as the number of days of rotation, the day of the starting date, and the date range.
 ### Calendar Display
-'visionPrep displays a calender with each day from Monday to Friday along with the date and day of rotation. The following rows include the duty names and times along with the staff members assigned to each duty. By clicking on the reload button located on the top left corner, the staff members can be shuffled, allowing for multiple different options of schedules.
-### Calender Editing
-The days in the calender can be switched to become a School Day, Holiday, or PA Day using the right sidebar. By pressing the reload button, these changes will processed and the calendar will be manipulated to match the changes. Furthermore, each individual staff member can be change by double-clicking on a certain cell and entering a different name.
+'visionPrep displays a calendar with each day from Monday to Friday along with the date and day of rotation. The following rows include the duty names and times along with the staff members assigned to each duty. By clicking on the reload button located on the top left corner, the staff members can be shuffled, allowing for multiple different options for schedules.
+### Calendar Editing
+The days in the calendar can be switched to become a School Day, Holiday, or PA Day using the right sidebar. By pressing the reload button, these changes will processed and the calendar will be manipulated to match the changes. Furthermore, each individual staff member can be change by double-clicking on a certain cell and entering a different name.
 ### Download
-By clicking the download button located on the top left corner beside the reload button, the user can download the calendar as a .csv file.
+By clicking the download button located on the top left corner beside the reload button, the user can download the generated schedule as a CSV file.
 ## Installation
-1. Clone this repository and cs into the frontend folder
+1. Clone this repository and cd into the frontend folder
 ```
 git clone https://github.com/emlyqi/visionPrep.git
 cd frontend
