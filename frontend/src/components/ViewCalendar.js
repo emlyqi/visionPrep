@@ -1,16 +1,22 @@
+/** 
+VisionPrep
+ICS4U-03
+Emily Qi and Jamie Xiao
+This file serves to display the supervision calendar and the editing functions.
+History:
+May 28, 2024: Last changes made
+*/
+
 import React, { useState, useContext, useMemo, useRef, } from "react";
-import Calendar from 'react-calendar';
-import { Box, Grid, Button, IconButton, Divider, Stack, FormControl, Select, MenuItem } from "@mui/material";
-import { borderBottomColor, fontSize, styled } from "@mui/system";
+import { Box, IconButton, Divider, Stack, FormControl, Select, MenuItem } from "@mui/material";
+import { styled } from "@mui/system";
 import UploadContext from "../contexts/UploadContext";
 import { AgGridReact } from 'ag-grid-react';
-import { createRoot } from "react-dom/client";
 import "ag-grid-community/styles/ag-grid.css";
 import "ag-grid-community/styles/ag-theme-quartz.css";
 import "../App.css"
 import RefreshIcon from '@mui/icons-material/Refresh';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
-import { gridApi } from "ag-grid-community";
 
 // import { ModuleRegistry } from "@ag-grid-community/core";
 // ModuleRegistry.registerModules([ClientSideRowModelModule]);

@@ -1,7 +1,16 @@
+/** 
+VisionPrep
+ICS4U-03
+Emily Qi and Jamie Xiao
+This file serves to display the welcome page and its components.
+History:
+May 28, 2024: Last changes made
+*/
+
 import React from 'react';
 import Navbar from '../components/Navbar';
 import welcomePic from '../assets/coverpic.png';
-import { Stack, Box, Button, Grid } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 
 function WelcomePage() {
   

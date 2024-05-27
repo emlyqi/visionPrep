@@ -1,3 +1,12 @@
+/** 
+VisionPrep
+ICS4U-03
+Emily Qi and Jamie Xiao
+This file serves to display the login page (not yet functional)
+History:
+May 28, 2024: Last changes made
+*/
+
 // import React from 'react';
 // import Login from '../components/Login';
 

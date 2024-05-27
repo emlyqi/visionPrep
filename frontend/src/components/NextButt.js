@@ -1,5 +1,14 @@
+/** 
+VisionPrep
+ICS4U-03
+Emily Qi and Jamie Xiao
+This file serves as the next button component.
+History:
+May 28, 2024: Last changes made
+*/
+
 import * as React from 'react';
-import { Stack, Box, Button } from '@mui/material';
+import { Button } from '@mui/material';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
 function NextButt() {

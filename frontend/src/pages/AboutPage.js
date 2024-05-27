@@ -1,3 +1,12 @@
+/** 
+VisionPrep
+ICS4U-03
+Emily Qi and Jamie Xiao
+This file serves to display the about page and its components.
+History:
+May 28, 2024: Last changes made
+*/
+
 import React, { PureComponent } from 'react'
 import Navbar from '../components/Navbar'
 

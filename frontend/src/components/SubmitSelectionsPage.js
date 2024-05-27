@@ -1,3 +1,12 @@
+/** 
+VisionPrep
+ICS4U-03
+Emily Qi and Jamie Xiao
+This file serves to display  the submit button (in the future, the customizations chosen by the user will be displayed here and a return button ).
+History:
+May 28, 2024: Last changes made
+*/
+
 import * as React from 'react';
 import { Stack, Grid, Item } from '@mui/material';
 import { Button } from '@mui/material';

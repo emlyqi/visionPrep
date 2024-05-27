@@ -1,19 +1,27 @@
-import React, { useState, useContext, useReducer } from "react";
+/** 
+VisionPrep
+ICS4U-03
+Emily Qi and Jamie Xiao
+This file serves as the calendar component seen in the customization page which prompts the user to choose the start and end dates.
+History:
+May 28, 2024: Last changes made
+*/
+
+import React, { useContext } from "react";
 import dayjs from 'dayjs';
-import {DemoContainer} from '@mui/x-date-pickers/internals/demo';
-import {LocalizationProvider} from '@mui/x-date-pickers/LocalizationProvider';
-import {DatePicker} from '@mui/x-date-pickers/DatePicker';
-import { PopperProps } from '@mui/material';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import UploadContext from "../contexts/UploadContext";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
-function CalendarDate ({startEnd}) {
+function CalendarDate ({ startEnd }) {
 
     const { startDateValue, endDateValue } = useContext(UploadContext);
-    const [, setStartDate] = startDateValue;
-    const [, setEndDate] = endDateValue;
+    const [, setStartDate ] = startDateValue;
+    const [, setEndDate ] = endDateValue;
 
-    const [date, setDate] = React.useState(dayjs());
+    const [ date, setDate ] = React.useState(dayjs());
 
     const changeDate = (newDate) => {
         setDate(newDate);
@@ -34,8 +42,6 @@ function CalendarDate ({startEnd}) {
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DemoContainer components={['DatePicker']}>
                 <DatePicker
-                    // view={['year', 'month', 'day']}
-                    // label={'"year", "month" and "day"'}
                     value={date}
                     onChange = {changeDate}
                     sx={{

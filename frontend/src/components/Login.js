@@ -1,3 +1,12 @@
+/** 
+VisionPrep
+ICS4U-03
+Emily Qi and Jamie Xiao
+This file serves as the login component (not yet functional)
+History:
+May 28, 2024: Last changes made
+*/
+
 import React, { useContext } from "react";
 import UploadCSV from "../components/Upload";
 import SelectDuties from "../components/SelectDuties";

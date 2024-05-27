@@ -1,3 +1,12 @@
+/** 
+VisionPrep
+ICS4U-03
+Emily Qi and Jamie Xiao
+This file serves to display the upload page where the user uploads, downloads, and customizes the supervision calendar.
+History:
+May 28, 2024: Last changes made
+*/
+
 import React, { useState } from "react";
 import dayjs from 'dayjs';
 import { Grid } from "@mui/material"; 

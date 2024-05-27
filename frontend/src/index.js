@@ -1,3 +1,12 @@
+/** 
+VisionPrep
+ICS4U-03
+Emily Qi and Jamie Xiao
+This file serves to route the different pages on the program.
+History:
+May 28, 2024: Last changes made
+*/
+
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
@@ -7,7 +16,6 @@ import LoginPage from './pages/LoginPage';
 import AboutPage from './pages/AboutPage';
 import reportWebVitals from './reportWebVitals';
 import UploadPage from './pages/UploadPage';
-import TestPage from './pages/TestPage';
 // import SubmitSelectionsPage from './pages/SubmitSelectionsPage';
 import {
   createBrowserRouter,
@@ -30,10 +38,6 @@ const router = createBrowserRouter([
   {
     path: "upload",
     element: <UploadPage/>,
-  },
-  {
-    path: "test",
-    element: <TestPage/>,
   },
   // {
   //   path: "submit",
