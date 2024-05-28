@@ -1,7 +1,7 @@
 # 'visionPrep
 'visionPrep is a web app that allows the user to easily prepare a school's supervision plan for a specified time period.
 
-Access it here: visionprep24.web.app/
+Access it here: https://visionprep24.web.app
 ## Features
 ### Upload
 The user can upload a CSV file that contains the staff names, loads, available days, etc.
@@ -28,7 +28,7 @@ Please contact the developer at emilyqi2019@gmail.com or jamie.xiao.ca@gmail.com
 ## Sources
 | Citation | Purpose |
 |:-:|:-:|
-| [1] “Get started with Firebase hosting,” Google, https://firebase.google.com/docs/hosting/quickstart (accessed May 26, 2024). | To host the final web app at visionprep24.web.app |
+| [1] “Get started with Firebase hosting,” Google, https://firebase.google.com/docs/hosting/quickstart (accessed May 26, 2024). | To host the final web app at https://visionprep24.web.app |
 | [2] MozDevNet, “Array.prototype.concat() - javascript: MDN,” MDN Web Docs, https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/concat (accessed May 26, 2024). | To repeat the generated schedule of 6-8 weeks for the duration of the selected period of time |
 | [3] DarthWader and Faly, “How to check if a two dimensional array includes a string?,” Stack Overflow, https://stackoverflow.com/questions/48538162/how-to-check-if-a-two-dimensional-array-includes-a-string (accessed May 26, 2024). | To check if a particular staff member is able to supervise the gym or weight room; to check if a particular staff member has already been scheduled |
 | [4] J. Bubb, “How to shuffle an array in JavaScript,” DEV Community, https://dev.to/codebubb/how-to-shuffle-an-array-in-javascript-2ikj#:~:text=The%20first%20and%20simplest%20way (accessed May 26, 2024). | To randomize the supervision schedule-generation process |
