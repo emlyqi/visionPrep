@@ -1,40 +1,42 @@
+/** 
+VisionPrep
+ICS4U-03
+Emily Qi and Jamie Xiao
+This file serves to gather the data from the uploaded .csv file.
+History:
+May 28, 2024: Last changes made
+*/
+
+/** IMPORT LIBRARIES */
 import React, { useContext, useState } from 'react'
-import { Link } from 'react-router-dom';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemButton from '@mui/material/ListItemButton';
-import ListItemText from '@mui/material/ListItemText';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import { styled } from '@mui/material/styles';
-import FormGroup from '@mui/material/FormGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Switch from '@mui/material/Switch';
-import Stack from '@mui/material/Stack';
 import csvInstr from '../assets/csvInstructionsFormat.png';
 import Papa from "papaparse";
 import { Grid } from '@mui/material';
 import UploadContext from "../contexts/UploadContext";
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 
+/** UPLOAD .CSV FILE FUNCTION */
+// this function uses code from [7] https://medium.com/how-to-react/how-to-parse-or-read-csv-files-in-reactjs-81e8ee4870b0 to parse the data in the .csv file
 function UploadCSV() {
+  /** 
+  component which prompts the user to upload a .csv file
+  Returns:
+    (component) : UploadCSV component
+  */
+
+  // VARIABLES
   const [file, setFile] = useState();
   const [array, setArray] = useState([]);
-
-  // const fileReader = new FileReader();
-
   const {staffArrayValue} = useContext(UploadContext);
   const [, setStaffArray] = staffArrayValue;
+  const [uploadColour, setUploadColour] = useState("#5790FF"); // change the colour when a .csv file is uploaded
 
-  const [uploadColour, setUploadColour] = useState("#5790FF");
-
+  // when a .csv file is uploaded
   const handleOnChange = (e) => {
-    setUploadColour("#57DB64");
+    setUploadColour("#57DB64"); // change the colour
+    
+    // take the information from the .csv file
     setFile(e.target.files[0]);
     Papa.parse(e.target.files[0], {
       header: true,
@@ -45,47 +47,7 @@ function UploadCSV() {
     });
   };
 
-  // const csvFileToArray = string => {
-  //   const csvHeader = string.slice(0, string.indexOf("\n")).split(",");
-  //   const csvRows = string.slice(string.indexOf("\n") + 1).split("\n");
-
-  //   const array = csvRows.map(i => {
-  //     const values = i.split(",");
-  //     const obj = csvHeader.reduce((object, header, index) => {
-  //       object[header] = values[index];
-  //       return object;
-  //     }, {});
-  //     return obj;
-  //   });
-
-  //   setArray(array);
-  // };
-
-  // const handleOnSubmit = (e) => {
-  //   e.preventDefault();
-
-  //   if (file) {
-  //     fileReader.onload = function (event) {
-  //       const text = event.target.result;
-  //       // csvFileToArray(text);
-  //     };
-
-  //     fileReader.readAsText(file);
-  //   }
-  // };
-
-  // const changeHandler = (e) => {
-  //   Papa.parse(e.target.files[0], {
-  //     header:true,
-  //     skipEmptyLines:true,
-  //     complete:function(results){
-  //       console.log(results.data)
-  //     },
-  //   });
-  // }
-
-  // const headerKeys = Object.keys(Object.assign({}, ...array));
-
+  // display the .csv file upload page
   return (
     <Grid container flexGrow xs={12} minHeight='100vh' bgcolor='#34363D' justifyContent="center" alignItems="center">
       <Grid 
@@ -110,7 +72,7 @@ function UploadCSV() {
 
           style={{top: '0', bottom: '0', left: '0', right: '0', position: 'absolute', width: 'auto', height: 'auto', marginTop: '4rem', marginBottom: '4rem', marginRight: '4rem', marginLeft: '4rem', padding: '0rem'}}
         >
-        {/* <div style={{ marginTop: '2rem', marginBottom: '2rem', marginRight: '4rem', marginLeft: '4rem', width: 'auto', height: 'auto', position: 'absolute'}}> */}
+          {/* .csv file upload */}
           <div style={{ textAlign:"center"}}>
             <label htmlFor="csvFileInput">
               <input style={{ display: "none" }}
@@ -142,70 +104,17 @@ function UploadCSV() {
                 Upload CSV
               </Button>
             </label>
-              {/* <form style={{ }}>
-                <input
-                  style={{ position:"absolute",  left:"50%", top:"11.25rem", transform:"translate(-50%, -50%)", display:"block"}}
-                  type={"file"}
-                  id={"csvFileInput"}
-                  accept={".csv"}
-                  onChange={handleOnChange}
-                /> */}
+            <br />
+          </div>
 
-            {/* <Button
-              sx={{ 
-                position:"absolute",
-                left:"50%",
-                top:"11.25rem",
-                transform:"translate(-50%,50%)",
-                display:"block",
-                backgroundColor:"#212121",
-                color:"#80828A",
-                padding:"0",
-                ":hover": {
-                  textDecoration:"underline"
-                },
-              }}
-              onClick={(e) => {
-                handleOnSubmit(e);
-              }}
-            >
-              Import CSV
-            </Button> */}
-          {/* </form> */}
-
-              <br />
-
-              {/* <table>
-                <thead>
-                  <tr key={"header"}>
-                    {headerKeys.map((key) => (
-                      <th>{key}</th>
-                    ))}
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {array.map((item) => (
-                    <tr key={item.id}>
-                      {Object.values(item).map((val) => (
-                        <td>{val}</td>
-                      ))}
-                    </tr>
-                  ))}
-                </tbody>
-              </table> */}
-
-            </div>
-
-            {/* <img src={csvInstructions} alt="CSV Format Instructions" /> */}
-            <img 
-              src={csvInstr} 
-              alt="CSV Format Instructions" 
-              style={{
-                width:"70%"
-              }}
-              />
-        {/* </div> */}
+          {/* image with the format/instructions */}
+          <img 
+            src={csvInstr} 
+            alt="CSV Format Instructions" 
+            style={{
+              width:"70%"
+            }}
+          />
         </Grid>
       </Grid>
     </Grid>

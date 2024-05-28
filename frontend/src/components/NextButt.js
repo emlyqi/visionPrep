@@ -7,11 +7,20 @@ History:
 May 28, 2024: Last changes made
 */
 
+/** IMPORT LIBRARIES */
 import * as React from 'react';
 import { Button } from '@mui/material';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 
+/** NEXT BUTTON FUNCTION */
 function NextButt() {
+    /** 
+    serves as the next button component which allows the user to go to the next page in the customization section
+    Returns:
+        (component) : next button component
+    */
+
+    // display the button
     return(
         <Button 
             variant = "contained" 

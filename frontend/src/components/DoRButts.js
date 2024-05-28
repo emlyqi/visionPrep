@@ -7,13 +7,25 @@ History:
 May 28, 2024: Last changes made
 */
 
+/** IMPORT LIBRARIES */
 import React, { useContext } from "react";
 import { ToggleButton, ToggleButtonGroup, styled } from '@mui/material';
 import UploadContext from "../contexts/UploadContext";
 
-// hopefully the variables work!! did not try it out!!
-
+/** DAYS OF ROTATION FUNCTION */
+// function uses elements from [14] https://mui.com/material-ui/react-toggle-button/ to add a toggle button
 function DoRButts () {
+    /** 
+    serves as the days of rotation toggle component which prompts the user to choose how many days of rotation they want
+    Returns:
+        (component) : days of rotation toggle component
+    */
+
+    // VARIABLES
+    const {daysOfRotationValue} = useContext(UploadContext);
+    const [, setDaysOfRotation] = daysOfRotationValue;
+
+    // styling for the toggle button
     const MuiToggleButton = styled(ToggleButton)({
         fontSize: '1.5625rem',
         color: "#5790FF",
@@ -34,14 +46,12 @@ function DoRButts () {
 
     })
 
-    const {daysOfRotationValue} = useContext(UploadContext);
-    const [, setDaysOfRotation] = daysOfRotationValue;
-
+    // when use presses one of the numbers in the toggle button
     const handleDOR = (event, newDOR) => {
-        setDaysOfRotation(newDOR);
-        console.log(daysOfRotationValue)
+        setDaysOfRotation(newDOR); // change the 'global' variable
     };
 
+    // display the toggle button
     return (
         <ToggleButtonGroup 
             sx={{

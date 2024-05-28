@@ -7,12 +7,19 @@ History:
 May 28, 2024: Last changes made
 */
 
+/** IMPORT LIBRARIES */
 import React, { PureComponent } from 'react'
 import Navbar from '../components/Navbar'
 
+/** ABOUT CLASS */
 export class AboutPage extends PureComponent {
+  /** 
+  Displays the about page
+  Returns:
+    (component) : about page
+  */
   render() {
-    const aboutText = "This is information about ‘visionPrep."
+    const aboutText = "This is information about ‘visionPrep." // text
 
     return (
       <div style={{height: '100vh', backgroundColor: '#34363D'}}>

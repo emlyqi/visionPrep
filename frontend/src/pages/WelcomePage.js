@@ -7,16 +7,23 @@ History:
 May 28, 2024: Last changes made
 */
 
+/** IMPORT LIBRARIES */
 import React from 'react';
 import Navbar from '../components/Navbar';
 import welcomePic from '../assets/coverpic.png';
 import { Box, Grid } from '@mui/material';
 
+/** WELCOME PAGE FUNCTION */
 function WelcomePage() {
+  /** 
+  presents a welcome page
+  Returns:
+      (component) : welcome page
+  */
   
+  // displays the welcome page
   return (
     <Grid container flexGrow xs={12} minHeight='100vh' bgcolor='#34363D' justifyContent="center" alignItems="center">
-    {/* <div style={{ backgroundColor: '#34363D', height: '100vh'}}> */}
       <Navbar></Navbar>
       <Grid 
         item 
@@ -27,6 +34,7 @@ function WelcomePage() {
 
         style={{top: '0', bottom: '0', left: '0', right: '0', position: 'absolute', width: 'auto', height: 'auto', marginTop: '15rem', marginBottom: '2rem', marginRight: '2rem', marginLeft: '2rem'}}
       >
+        {/* text */}
         <Box
         width='40%'
         height="100%"
@@ -54,8 +62,6 @@ function WelcomePage() {
             
           />
         </Box>
-
-    {/* </div> */}
       </Grid>
     </Grid>
   )
