@@ -24,7 +24,7 @@ cd frontend
 - Light mode-dark mode toggle is not functional
 - Web app occasionally freezes after reloading the calendar several times
 ## Support
-Please contact the developer at emilyqi2019@gmail.com or jamie.xiao.ca@gmail.com for support or feature requests.
+Please contact the developer at emilyhlqi@gmail.com or jamie.xiao.ca@gmail.com for support or feature requests.
 ## Sources
 | Citation | Purpose |
 |:-:|:-:|
